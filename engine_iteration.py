@@ -49,8 +49,17 @@ def get_engine_constants():
         'min_blade_length': 0.012,
         'lpt_work_coefficient': 2.6,
         'lpt_min_blade_length': 0.031,
-        # 'compressor_diffusion_factor': 0.45,
-        # 'turbine_lift_coeff': 1,
+        'hpt_disk_depth': 0.15,
+        'hpt_blade_density': 8193.25,
+        'hpt_poissons_ratio': 0.27,
+        'hpt_yield_strength_dict': {20: 1100e6,
+                                    540: 982e6,
+                                    600: 960e6,
+                                    650: 894e6,
+                                    700: 760e6,
+                                    760: 555e6,
+                                    820: 408e6},
+        'lpt_lift_coeff': 0.85,
     }
 
 
@@ -61,7 +70,6 @@ def __get_variable_ranges():
         'hpt_min_blade_length': np.linspace(0.012, 0.03, 6, endpoint=True),
         'lpc_diffusion_factor': np.linspace(0.2, 0.5, 6, endpoint=True),
         'hpc_diffusion_factor': np.linspace(0.2, 0.5, 6, endpoint=True),
-        'lpt_lift_coeff': np.linspace(0.7, 1, 3, endpoint=True),
         'hpt_lift_coeff': np.linspace(0.7, 1, 3, endpoint=True),
         'lpc_reaction_mean': np.linspace(0.5, 0.9, 6, endpoint=True),
         'hpc_reaction_mean': np.linspace(0.5, 0.9, 6, endpoint=True),
@@ -214,7 +222,7 @@ if __name__ == '__main__':
     main(tried_variables_dir,
          valid_variables_dir,
          second_iteration=True,
-         second_per_var_iterations=10)
+         second_per_var_iterations=6)
 
     # Get variable ranges from valid results:
     # print(__get_variable_ranges_from_file(

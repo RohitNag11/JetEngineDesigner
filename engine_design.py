@@ -38,6 +38,7 @@ def get_engine_constants():
         'T_05': 892.91,
         'compressor_reaction_tip': 0.5,
         'compressor_reaction_hub': 0.5,
+        'turbine_reaction_mean': 0.5,
         'turbine_reaction_tip': 0.5,
         'turbine_reaction_hub': 0.5,
         'check_dp': 5,
@@ -48,25 +49,27 @@ def get_engine_constants():
         'hpt_disk_depth': 0.15,
         'hpt_blade_density': 8193.25,
         'hpt_poissons_ratio': 0.27,
-        'hpt_yield_strength_dict': {20: 1100,
-                                    540: 982,
-                                    600: 960,
-                                    650: 894,
-                                    700: 760,
-                                    760: 555,
-                                    820: 408},
+        'hpt_yield_strength_dict': {20: 1100e6,
+                                    540: 982e6,
+                                    600: 960e6,
+                                    650: 894e6,
+                                    700: 760e6,
+                                    760: 555e6,
+                                    820: 408e6},
+        'lpt_lift_coeff': 0.85,
     }
 
 
 def get_engine_variables():
     return {
-        'hpt_work_coefficient': 0.8,
-        'hpt_angular_velocity': 1250,
+        'hpt_work_coefficient': 1.9,
+        'hpt_angular_velocity': 1300,
         'hpt_min_blade_length': 0.03,
-        'lpc_diffusion_factor': 0.5,
-        'hpc_diffusion_factor': 0.5,
-        'lpt_lift_coeff': 0.8,
-        'hpt_lift_coeff': 0.8,
+        'lpc_diffusion_factor': 0.24,
+        'hpc_diffusion_factor': 0.39,
+        'hpt_lift_coeff': 0.85,
+        'lpc_reaction_mean': 0.85,
+        'hpc_reaction_mean': 0.84
     }
 
 
@@ -95,8 +98,8 @@ def main(engine_data_dir_path, engine_variables_path=None):
 if __name__ == '__main__':
     engine_data_dir_path = f'./data/EngineData'
 
-    # # Run optimal engine design:
-    # engine_variables_path = f'./data/VariablesData/Valid/hdf_hav_hlc_hmbl_hwc_ldf_llc.csv'
+    # Run optimal engine design:
+    # engine_variables_path = f'./data/VariablesData/Valid/hdf_hrm_hav_hlc_hmbl_hwc_ldf_lrm_llc.csv'
     # main(engine_data_dir_path, engine_variables_path)
 
     # Run test engine design:

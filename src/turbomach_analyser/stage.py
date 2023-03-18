@@ -273,6 +273,9 @@ class Stage:
             # lift coefficient for turbines to be about 0.8
             if not 0.7 <= self.lift_coeff <= 0.9:
                 return False
-        # Safety factor on turbine blades to be atleast 1.5-2?
-            # NOTE: idk if this can be checked
+            # Safety factor on turbine blades to be atleast 1.5-2
+            if not self.is_low_pressure:
+                if self.stress_safety_factor < 1.5:
+                    return False
+
         return True
