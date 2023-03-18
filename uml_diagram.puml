@@ -1,0 +1,343 @@
+class __init___py <<module>> << (M,orchid) >> #DarkSeaGreen {
+}
+class __init___py <<module>> << (M,orchid) >> #DarkSeaGreen {
+}
+class FlightAnalysis {
+    density_sea
+    gas_const
+    phases
+    pressure_sea
+    spec_heat_ratio
+    temp_sea
+    __init__()
+    add_phase()
+}
+
+FlightAnalysis *--> UnknownType : phases
+class flight_analysis_py <<module>> << (M,orchid) >> #DarkSeaGreen {
+}
+
+flight_analysis_py .. FlightAnalysis : contains >
+class Phase {
+    area
+    coeff
+    density_freestream
+    density_intake
+    density_ratio
+    diameter
+    mach_no
+    mach_no_intake
+    mass_flow
+    mass_flow_corrected
+    pressure_freestream
+    pressure_intake
+    pressure_ratio
+    required_thrust
+    specific_thrust
+    temp_freestream
+    temp_intake
+    temp_ratio
+    velocity_freestream
+    velocity_intake
+    __get_density_intake()
+    __get_min_engine_size()
+    __get_param_freestream()
+    __get_pressure_intake()
+    __get_temp_intake()
+    __init__()
+}
+
+class phase_py <<module>> << (M,orchid) >> #DarkSeaGreen {
+}
+
+phase_py .. Phase : contains >
+class __init___py <<module>> << (M,orchid) >> #DarkSeaGreen {
+}
+class Compressor {
+    angular_velocity
+    d_stag_enthalpy
+    flow_coeff
+    hub_diameters
+    is_low_pressure
+    is_valid
+    mean_radius
+    name
+    no_of_stages
+    per_stage_pressure_ratio
+    stages
+    tangential_speed
+    work_coeff
+    __check_validity()
+    __get_geometry_of_stages()
+    __get_work_coefficient()
+    __init__()
+    __str__()
+}
+
+TurboComponent <|- Compressor
+class compressor_py <<module>> << (M,orchid) >> #DarkSeaGreen {
+}
+
+compressor_py .. Compressor : contains >
+class Engine {
+    bypass_ratio
+    diameter
+    fan
+    hpc
+    hpt
+    is_valid
+    lpc
+    lpt
+    mass_flow
+    overall_pressure_ratio
+    score
+    __check_validity()
+    __get_T_021()
+    __get_score()
+    __init__()
+}
+
+Engine *--> Fan : fan
+Engine *--> Turbine : hpt
+Engine *--> Turbine : lpt
+Engine *--> Compressor : lpc
+Engine *--> Compressor : hpc
+class engine_py <<module>> << (M,orchid) >> #DarkSeaGreen {
+}
+
+engine_py .. Engine : contains >
+class Fan {
+    __GAS_CONST
+    __SPEC_HEAT_RATIO
+    __TEMP_SEA
+    angular_velocity
+    hub_diameter
+    hub_tip_ratio
+    inner_fan_mean_radius
+    inner_fan_pressure_ratio
+    inner_fan_tip_diameter
+    is_valid
+    name
+    outer_fan_pressure_ratio
+    pressure_ratio
+    tip_diameter
+    tip_mach_no
+    __check_validity()
+    __get_angular_velocity()
+    __get_inner_fan_tip_diameter()
+    __init__()
+    __str__()
+}
+
+class fan_py <<module>> << (M,orchid) >> #DarkSeaGreen {
+}
+
+fan_py .. Fan : contains >
+class Stage {
+    angular_velocity
+    axial_velocity
+    blade_angles_deg
+    blade_angles_rad
+    blade_height
+    d_stag_enthalpy
+    density
+    diffusion_factor
+    disk_internal_radius
+    disk_thickness
+    disk_thickness_estimate
+    flow_coeff
+    force_at_rim
+    hub_diameter
+    is_compressor_stage
+    is_low_pressure
+    is_valid
+    lift_coeff
+    mean_radius
+    mean_tangential_speed
+    no_of_blades
+    number
+    poissons_ratio
+    r
+    radial_stress
+    reaction
+    rotor_aspect_ratio
+    rotor_chord_length
+    rotor_thickness
+    solidity
+    stag_temp
+    stator_aspect_ratio
+    stator_chord_length
+    stator_thickness
+    stress_safety_factor
+    surface_temp
+    temp
+    tip_diameter
+    von_misses_stress
+    work_coeff
+    yield_strength
+    __check_validity()
+    __init__()
+    get_aspect_ratio()
+    get_blade_angles_at_mean_radius()
+    get_blade_angles_at_radius()
+    get_disk_thickness()
+    get_force_at_rim()
+    get_no_of_blades()
+    get_radial_and_hoop_stresses()
+    get_solidity()
+    get_stress_safety_factor()
+    get_von_misses_stress()
+    get_work_coeff_at_location()
+    get_yield_strength()
+}
+
+Stage *--> np.arctan : blade_angles_rad
+class stage_py <<module>> << (M,orchid) >> #DarkSeaGreen {
+}
+
+stage_py .. Stage : contains >
+class Turbine {
+    angular_velocity
+    blade_density
+    blade_length
+    cooling
+    d_stag_enthalpy
+    d_stag_temp_per_stage
+    disk_depth
+    flow_coeff
+    hub_diameters
+    is_low_pressure
+    is_valid
+    isentropic_efficiency
+    mean_radius
+    mean_tangential_speed
+    name
+    no_of_stages
+    poissons_ratio
+    pressure_ratio
+    pressure_ratios
+    stages
+    tip_mach_nos
+    work_coeff
+    yield_strength_dict
+    __check_validity()
+    __get_geometry_of_stages()
+    __get_no_of_stages()
+    __get_pressure_ratios()
+    __get_tip_mach_nos()
+    __init__()
+    __str__()
+}
+
+TurboComponent <|- Turbine
+Turbine *--> np.prod : pressure_ratio
+class turbine_py <<module>> << (M,orchid) >> #DarkSeaGreen {
+}
+
+turbine_py .. Turbine : contains >
+class TurboComponent {
+    P0_exit
+    P0_inlet
+    T0_exit
+    T0_inlet
+    __GAS_CONST
+    __SPEC_HEAT_RATIO
+    area_exit
+    area_inlet
+    axial_mach_no_exit
+    axial_mach_no_inlet
+    axial_velocity
+    density_exit
+    density_inlet
+    mass_flow
+    pressure_ratio
+    stag_density_exit
+    stag_density_inlet
+    __init__()
+}
+
+class turbo_component_py <<module>> << (M,orchid) >> #DarkSeaGreen {
+}
+
+turbo_component_py .. TurboComponent : contains >
+class __init___py <<module>> << (M,orchid) >> #DarkSeaGreen {
+}
+class activation_py <<module>> << (M,orchid) >> #DarkSeaGreen {
+    ---
+    smooth_step_down()
+    smooth_step_up()
+}
+
+activation_py --> np.array : uses
+activation_py --> np.where : uses
+class arrays_py <<module>> << (M,orchid) >> #DarkSeaGreen {
+    ---
+    interpolate_stress()
+}
+class NumpyEncoder {
+    default()
+}
+
+json.JSONEncoder <|- NumpyEncoder
+class formatter_py <<module>> << (M,orchid) >> #DarkSeaGreen {
+    ---
+    compact_hash_dict_keys()
+    csv_to_hashed_val_set()
+    format_elapsed_time()
+    hash_dict_keys()
+    hash_dict_vals()
+    hashed_vals_to_csv()
+    humanise_str()
+    read_hashed_file_to_dict_list()
+    read_vars_file()
+    save_obj_to_file()
+    sort_dict()
+    to_dict()
+    to_json()
+    unhash_dict()
+}
+
+formatter_py .. NumpyEncoder : contains >
+class geometry_py <<module>> << (M,orchid) >> #DarkSeaGreen {
+    ---
+    get_angular_velocity()
+    get_annulus_area()
+    get_area_from_diameter()
+    get_diameter_from_area()
+    get_hub_diameter_from_blade_length()
+    get_hub_diameter_from_mean_radius()
+    get_mean_radius_from_blade_length()
+    get_tangential_speed()
+    get_tip_diameter_from_hub_diameter()
+    get_tip_diameter_from_mean_radius()
+}
+class plots_py <<module>> << (M,orchid) >> #DarkSeaGreen {
+    ---
+    draw_engine()
+    draw_engine_casing()
+    draw_fan()
+    draw_turb_comp()
+    get_bezier_curve_geometry()
+    plot_bezier_curve()
+}
+
+plots_py --> plt.subplots : uses
+plots_py --> np.repeat : uses
+plots_py --> np.linspace : uses
+class thermo_py <<module>> << (M,orchid) >> #DarkSeaGreen {
+    ---
+    get_corrected_mass_flow()
+    get_delta_stag_enthalpy()
+    get_mach_no_from_velocity()
+    get_mass_flow()
+    get_speed_of_sound()
+    get_stag_density()
+    get_static_density()
+    get_static_temp()
+    get_velocity_from_mach_no()
+}
+class unit_conv_py <<module>> << (M,orchid) >> #DarkSeaGreen {
+    ---
+    feet2km()
+}
+hide empty members

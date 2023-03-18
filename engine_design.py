@@ -36,11 +36,7 @@ def get_engine_constants():
         'T_045': 1268.72,
         'P_05': 82688,
         'T_05': 892.91,
-        'compressor_reaction_tip': 0.5,
-        'compressor_reaction_hub': 0.5,
         'turbine_reaction_mean': 0.5,
-        'turbine_reaction_tip': 0.5,
-        'turbine_reaction_hub': 0.5,
         'check_dp': 5,
         'engine_diameter': 2.6,
         'min_blade_length': 0.012,
@@ -99,8 +95,8 @@ if __name__ == '__main__':
     engine_data_dir_path = f'./data/EngineData'
 
     # Run optimal engine design:
-    # engine_variables_path = f'./data/VariablesData/Valid/hdf_hrm_hav_hlc_hmbl_hwc_ldf_lrm_llc.csv'
-    # main(engine_data_dir_path, engine_variables_path)
+    engine_variables_path = f'./data/VariablesData/Valid/hdf_hrm_hav_hlc_hmbl_hwc_ldf_lrm.csv'
+    main(engine_data_dir_path, engine_variables_path)
 
-    # Run test engine design:
-    main(engine_data_dir_path)
+    # # Run test engine design:
+    # main(engine_data_dir_path)

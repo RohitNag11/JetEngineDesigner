@@ -39,11 +39,7 @@ def get_engine_constants():
         'T_045': 1268.72,
         'P_05': 82688,
         'T_05': 892.91,
-        'compressor_reaction_tip': 0.5,
-        'compressor_reaction_hub': 0.5,
         'turbine_reaction_mean': 0.5,
-        'turbine_reaction_tip': 0.5,
-        'turbine_reaction_hub': 0.5,
         'check_dp': 5,
         'engine_diameter': 2.6,
         'min_blade_length': 0.012,
@@ -65,14 +61,14 @@ def get_engine_constants():
 
 def __get_variable_ranges():
     return {
-        'hpt_work_coefficient': np.linspace(0.8, 2, 6, endpoint=True),
+        'hpt_min_blade_length': np.linspace(0.019, 0.023, 3, endpoint=True),
+        'hpt_work_coefficient': np.linspace(1.76, 2, 3, endpoint=True),
         'hpt_angular_velocity': np.linspace(500, 1500, 6, endpoint=True),
-        'hpt_min_blade_length': np.linspace(0.012, 0.03, 6, endpoint=True),
-        'lpc_diffusion_factor': np.linspace(0.2, 0.5, 6, endpoint=True),
-        'hpc_diffusion_factor': np.linspace(0.2, 0.5, 6, endpoint=True),
-        'hpt_lift_coeff': np.linspace(0.7, 1, 3, endpoint=True),
-        'lpc_reaction_mean': np.linspace(0.5, 0.9, 6, endpoint=True),
-        'hpc_reaction_mean': np.linspace(0.5, 0.9, 6, endpoint=True),
+        'lpc_diffusion_factor': np.linspace(0.1, 0.5, 5, endpoint=True),
+        'hpc_diffusion_factor': np.linspace(0.1, 0.5, 5, endpoint=True),
+        'hpt_lift_coeff': np.linspace(0.7, 0.9, 3, endpoint=True),
+        'lpc_reaction_mean': np.linspace(0.3, 0.9, 3, endpoint=True),
+        'hpc_reaction_mean': np.linspace(0.3, 0.9, 3, endpoint=True),
     }
 
 

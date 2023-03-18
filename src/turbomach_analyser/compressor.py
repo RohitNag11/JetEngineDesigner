@@ -17,8 +17,6 @@ class Compressor(TurboComponent):
                  angular_velocity,
                  per_stage_pressure_ratio=1.3,
                  reaction_mean=0.5,
-                 reaction_tip=0.5,
-                 reaction_hub=0.5,
                  diffusion_factor=0.45,
                  SPEC_HEAT_RATIO=1.4,
                  GAS_CONST=287,
@@ -61,9 +59,8 @@ class Compressor(TurboComponent):
                              hub_diameter=self.hub_diameters[i],
                              tip_diameter=self.tip_diameters[i],
                              reaction_mean=reaction_mean,
-                             reaction_hub=reaction_hub,
-                             reaction_tip=reaction_tip,
                              diffusion_factor=diffusion_factor,
+                             check_dp=check_dp,
                              SPEC_HEAT_RATIO=SPEC_HEAT_RATIO,
                              GAS_CONST=GAS_CONST,) for i in range(self.no_of_stages)]
         self.is_valid = self.__check_validity(check_dp)

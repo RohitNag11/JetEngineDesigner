@@ -109,78 +109,85 @@ def plot_bezier_curve(start_point, start_angle, end_angle, chord_length, color, 
     plt.plot(x, y, color)
 
 
-def get_bezier_curve_geometry(start_point, end_angle, chord_length):
-    end_point = (start_point[0] + chord_length*np.cos(end_angle),
-                 start_point[1] + chord_length*np.sin(end_angle))
-    curve_width = end_point[0] - start_point[0]
-    curve_height = end_point[1] - start_point[1]
+def get_bezier_curve_geometry(end_angle, chord_length):
+    end_point = (chord_length*np.cos(end_angle),
+                 chord_length*np.sin(end_angle))
+    curve_width = end_point[0]
+    curve_height = end_point[1]
     return curve_width, curve_height
 
 
-# def plot_compressor_blades(stage_angles, rotor_chord_lengths, stator_chord_lengths, rotor_thicknesses, stator_thicknesses):
-#     plt.figure(figsize=(10, len(stage_angles)*4))
-#     start_x = 0
-#     for i, angles in enumerate(stage_angles):
-#         alpha_1 = angles['alpha_1']
-#         alpha_2 = angles['alpha_2']
-#         beta_1 = -angles['beta_1']
-#         beta_2 = -angles['beta_2']
+def plot_compressor_blades(stage_angles, rotor_chord_lengths, stator_chord_lengths, rotor_thicknesses, stator_thicknesses):
+    plt.figure(figsize=(10, len(stage_angles)*4))
+    start_x = 0
+    for i, angles in enumerate(stage_angles):
+        alpha_1 = angles['alpha_1']
+        alpha_2 = angles['alpha_2']
+        beta_1 = -angles['beta_1']
+        beta_2 = -angles['beta_2']
 
-#         rotor_chord_length = rotor_chord_lengths[i]
-#         stator_chord_length = stator_chord_lengths[i]
+        rotor_chord_length = rotor_chord_lengths[i]
+        # Calculate the rotor and stator start and end points
+        rotor_width, rotor_height = get_bezier_curve_geometry(
+            beta_2, rotor_chord_length)
+        rotor_thickness = rotor_thicknesses[i]
+        rotor_start = (start_x + 0.5*(rotor_thickness - rotor_width), 0)
+        rotor_end = (rotor_start[0] + rotor_width, rotor_height)
+        # Calculate the rotor and stator curves using the plot_bezier_curve() function
+        plot_bezier_curve(rotor_start, beta_1,
+                          beta_2, rotor_chord_length, 'r')
 
-#         # Calculate the rotor and stator start and end points
-#         # rotor_width, rotor_height = get_bezier_curve_geometry(
-#         rotor_start = (start_x, 0)
-#         # Calculate the rotor and stator curves using the plot_bezier_curve() function
-#         rotor_end = plot_bezier_curve(rotor_start, beta_1,
-#                                       beta_2, rotor_chord_length, 'r')
+        stator_chord_length = stator_chord_lengths[i]
+        stator_width, stator_height = get_bezier_curve_geometry(
+            beta_2, stator_chord_length)
+        stator_thickness = stator_thicknesses[i]
+        stator_start = (rotor_end[0] + rotor_width / 2 +
+                        0.5*(stator_thickness - stator_width), rotor_end[1])
+        stator_end = (stator_start[0] + stator_width, stator_height)
+        plot_bezier_curve(stator_start, alpha_2,
+                          alpha_1, stator_chord_length, 'b')
 
-#         stator_start = (rotor_end[0] + rotor_stator_spacing, rotor_end[1])
-#         stator_end = plot_bezier_curve(stator_start, alpha_2,
-#                                        alpha_1, stator_chord_length, 'b')
+        # # Plot the rotor and stator lines
+        # plt.plot([rotor_start[0], rotor_end[0]], [
+        #          rotor_start[1], rotor_end[1]], 'r--')
+        # plt.plot([stator_start[0], stator_end[0]], [
+        #          stator_start[1], stator_end[1]], 'b--')
 
-#         # # Plot the rotor and stator lines
-#         # plt.plot([rotor_start[0], rotor_end[0]], [
-#         #          rotor_start[1], rotor_end[1]], 'r--')
-#         # plt.plot([stator_start[0], stator_end[0]], [
-#         #          stator_start[1], stator_end[1]], 'b--')
+        # Set the x and y limits for the plot
+        # plt.xlim(-chord_length*2, chord_length*3)
+        # plt.ylim(-chord_length*2, chord_length*2)
 
-#         # Set the x and y limits for the plot
-#         # plt.xlim(-chord_length*2, chord_length*3)
-#         # plt.ylim(-chord_length*2, chord_length*2)
+        # Add labels for the rotor and stator
+        # plt.text(chord_length/2, -chord_length*2.2,
+        #          f'Rotor {i+1}', ha='center', va='top', color='r')
+        # plt.text(chord_length*2.5, -chord_length*2.2,
+        #          f'Stator {i+1}', ha='center', va='top', color='b')
 
-#         # Add labels for the rotor and stator
-#         # plt.text(chord_length/2, -chord_length*2.2,
-#         #          f'Rotor {i+1}', ha='center', va='top', color='r')
-#         # plt.text(chord_length*2.5, -chord_length*2.2,
-#         #          f'Stator {i+1}', ha='center', va='top', color='b')
+        start_x = stator_end[0] + stator_width
 
-#         start_x = stator_end[0] + stage_spacing
-
-#     plt.axis('off')
-#     plt.show()
+    plt.axis('off')
+    plt.show()
 
 
 # blade_angles = [
 #     {
-#         "alpha_1": 0.2066565857775206,
-#         "alpha_2": 0.5614338978580816,
-#         "beta_1": 0.5614338978580816,
-#         "beta_2": 0.20665658577752055
+#         "alpha_1": -0.050273510764082985,
+#         "alpha_2": 0.3534853705828855,
+#         "beta_1": -0.7266565755839396,
+#         "beta_2": -0.4390456138103782
 #     },
 #     {
-#         "alpha_1": 0.2066565857775206,
-#         "alpha_2": 0.5614338978580816,
-#         "beta_1": 0.5614338978580816,
-#         "beta_2": 0.20665658577752055
+#         "alpha_1": -0.050273510764082985,
+#         "alpha_2": 0.3534853705828855,
+#         "beta_1": -0.7266565755839396,
+#         "beta_2": -0.4390456138103782
 #     },
 # ]
 
 # rotor_chord_lengths = [0.024560584036669702, 0.021639381608756177]
 # stator_chord_lengths = [0.024560584036669702, 0.021639381608756177]
-# rotor_thicknesses = [0.0036840876055004553, 0.0032459072413134264]
-# stator_thicknesses = [0.0036840876055004553, 0.0032459072413134264]
+# rotor_thicknesses = [0.049121168073339404, 0.04327876321751235]
+# stator_thicknesses = [0.049121168073339404, 0.04327876321751235]
 
 # # start_point = (0, 0)
 # # start_angle = 0.5307621007232439
@@ -188,5 +195,8 @@ def get_bezier_curve_geometry(start_point, end_angle, chord_length):
 # # start_to_end_distance = 5
 # # plot_bezier_curve(start_point, start_angle, end_angle, start_to_end_distance)
 
-# plot_compressor_blades(blade_angles, rotor_chord_lengths,
-#                        stator_chord_lengths, 1, 1)
+# plot_compressor_blades(blade_angles,
+#                        rotor_chord_lengths,
+#                        stator_chord_lengths,
+#                        rotor_thicknesses,
+#                        stator_thicknesses)

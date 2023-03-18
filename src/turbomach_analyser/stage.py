@@ -59,10 +59,10 @@ class Stage:
         self.solidity = self.get_solidity()
         self.rotor_aspect_ratio = self.get_aspect_ratio('rotor')
         self.rotor_chord_length = self.blade_height / self.rotor_aspect_ratio
-        self.rotor_thickness = 0.15 * self.rotor_chord_length
+        self.rotor_thickness = 1.2 * self.rotor_chord_length
         self.stator_aspect_ratio = self.get_aspect_ratio('stator')
         self.stator_chord_length = self.blade_height / self.stator_aspect_ratio
-        self.stator_thickness = 0.15 * self.stator_chord_length
+        self.stator_thickness = 1.2 * self.stator_chord_length
         self.no_of_blades = self.get_no_of_blades()
 
         # if HPT stage:
@@ -134,6 +134,8 @@ class Stage:
             return {
                 'alpha_1': np.arctan((1 / flow_coeff) - term_1),
                 'alpha_2': np.arctan((1 / flow_coeff) + term_2),
+                # 'beta_1': np.arctan(term_1),
+                # 'beta_2': np.arctan(-term_2),
                 'beta_1': np.arctan(-term_1),
                 'beta_2': np.arctan(term_2)
             }
@@ -157,10 +159,12 @@ class Stage:
                 else:
                     suffix = key.split('_')[1]
                     alpha = self.blade_angles_rad[location][f'alpha_{suffix}']
-                    term_1 = 1/flow_coeff if self.is_compressor_stage else -1/flow_coeff
-                    term_2 = - \
-                        np.tan(alpha) if self.is_compressor_stage else np.tan(
-                            alpha)
+                    # term_1 = 1/flow_coeff if self.is_compressor_stage else -1/flow_coeff
+                    # term_2 = - \
+                    #     np.tan(alpha) if self.is_compressor_stage else np.tan(
+                    #         alpha)
+                    term_1 = -1/flow_coeff
+                    term_2 = np.tan(alpha)
                     self.blade_angles_rad[location][key] = np.arctan(
                         term_1 + term_2)
 
@@ -180,9 +184,11 @@ class Stage:
             flow_coeff = self.flow_coeff[location]
             if self.is_compressor_stage:
                 alpha_1 = self.blade_angles_rad[location]['alpha_1']
+                # self.work_coeff[location] = flow_coeff * \
+                #     (np.tan(alpha_2) - np.tan(alpha_1))
                 self.work_coeff[location] = flow_coeff * \
                     (np.tan(alpha_2) - np.tan(alpha_1))
-                self.reaction[location] = -1 - 0.5 * \
+                self.reaction[location] = 1 - 0.5 * \
                     flow_coeff * (np.tan(alpha_2) + np.tan(alpha_1))
             else:
                 alpha_3 = self.blade_angles_rad[location]['alpha_3']
@@ -287,6 +293,9 @@ class Stage:
                     return False
                 # b1-b2<45 for compressors
                 if np.abs(self.blade_angles_deg[location]['beta_1'] - self.blade_angles_deg[location]['beta_2']) > 45:
+                    return False
+                # a1 and a2 have to be positive:
+                if self.blade_angles_deg[location]['alpha_1'] <= 0 or self.blade_angles_deg[location]['alpha_2'] <= 0:
                     return False
             # # abs(b2) has to be less that abs(b1):
             # if np.abs(self.blade_angles_deg['mean']['beta_2']) > np.abs(self.blade_angles_deg['mean']['beta_1']):
