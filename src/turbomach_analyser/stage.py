@@ -16,8 +16,6 @@ class Stage:
                  hub_diameter,
                  tip_diameter,
                  reaction_mean=0.5,
-                 reaction_hub=0.5,
-                 reaction_tip=0.5,
                  cooling=None,
                  stag_temp=None,
                  diffusion_factor=None,
@@ -26,6 +24,7 @@ class Stage:
                  blade_density=None,
                  poissons_ratio=None,
                  yield_strength_dict=None,
+                 check_dp=5,
                  SPEC_HEAT_RATIO=1.4,
                  GAS_CONST=287,):
         self.number = number
@@ -33,27 +32,21 @@ class Stage:
         self.is_low_pressure = is_low_pressure
         self.lift_coeff = lift_coeff if lift_coeff else None
         self.diffusion_factor = diffusion_factor if diffusion_factor else None
-        self.flow_coeff = {}
-        self.flow_coeff['mean'] = flow_coeff
-        self.work_coeff = {}
-        self.work_coeff['mean'] = work_coeff
+        self.mean_radius = 0.25 * (tip_diameter + hub_diameter)
+        self.blade_height = 0.5 * (tip_diameter - hub_diameter)
         self.angular_velocity = angular_velocity
+        self.mean_tangential_speed = geom.get_tangential_speed(
+            angular_velocity, self.mean_radius * 2)
         self.hub_diameter = hub_diameter
         self.tip_diameter = tip_diameter
         self.axial_velocity = axial_velocity
-        self.reaction = {'mean': reaction_mean,
-                         'hub': reaction_hub,
-                         'tip': reaction_tip}
-        self.mean_radius = 0.25 * (tip_diameter + hub_diameter)
-        self.blade_height = 0.5 * (tip_diameter - hub_diameter)
-        self.mean_tangential_speed = geom.get_tangential_speed(
-            angular_velocity, self.mean_radius * 2)
-        self.d_stag_enthalpy = work_coeff * self.mean_tangential_speed**2
+        self.work_coeff = {'mean': work_coeff}
+        self.flow_coeff = self.get_flow_coeffs()
+        self.reaction = {'mean': reaction_mean}
         self.blade_angles_rad = {'mean': {}, 'hub': {}, 'tip': {}}
         # NOTE: consider setting first and last stage inlet/exit angles to 0
         self.blade_angles_rad['mean'] = self.get_blade_angles_at_mean_radius()
         self.get_blade_angles_at_radius()
-
         self.blade_angles_deg = {}
         self.blade_angles_deg['mean'] = {key: np.rad2deg(
             val) for key, val in self.blade_angles_rad['mean'].items()}
@@ -61,6 +54,8 @@ class Stage:
             val) for key, val in self.blade_angles_rad['hub'].items()}
         self.blade_angles_deg['tip'] = {key: np.rad2deg(
             val) for key, val in self.blade_angles_rad['tip'].items()}
+        self.calculate_work_coeffs_and_reactions()
+        self.d_stag_enthalpy = self.get_d_stag_enthalpy()
         self.solidity = self.get_solidity()
         self.rotor_aspect_ratio = self.get_aspect_ratio('rotor')
         self.rotor_chord_length = self.blade_height / self.rotor_aspect_ratio
@@ -90,8 +85,7 @@ class Stage:
             self.von_misses_stress = self.get_von_misses_stress()
             self.stress_safety_factor = self.get_stress_safety_factor()
             self.disk_thickness = self.get_disk_thickness()
-
-        self.is_valid = self.__check_validity()
+        self.is_valid = self.__check_validity(check_dp)
 
     def get_aspect_ratio(self, blade_type='stator'):
         if blade_type == 'stator':
@@ -140,8 +134,8 @@ class Stage:
             return {
                 'alpha_1': np.arctan((1 / flow_coeff) - term_1),
                 'alpha_2': np.arctan((1 / flow_coeff) + term_2),
-                'beta_1': np.arctan(term_1),
-                'beta_2': np.arctan(-term_2)
+                'beta_1': np.arctan(-term_1),
+                'beta_2': np.arctan(term_2)
             }
         return {
             'alpha_2': np.arctan((1 / flow_coeff) + term_2),
@@ -155,7 +149,7 @@ class Stage:
         r_m = self.mean_radius
         for location in locations:
             r = self.tip_diameter / 2 if location == 'tip' else self.hub_diameter / 2
-            u = self.angular_velocity * r
+            flow_coeff = self.flow_coeff[location]
             for key, val in self.blade_angles_rad['mean'].items():
                 if key.startswith('alpha'):
                     self.blade_angles_rad[location][key] = np.arctan(
@@ -163,17 +157,50 @@ class Stage:
                 else:
                     suffix = key.split('_')[1]
                     alpha = self.blade_angles_rad[location][f'alpha_{suffix}']
-                    term_1 = u/self.axial_velocity if self.is_compressor_stage else -u/self.axial_velocity
+                    term_1 = 1/flow_coeff if self.is_compressor_stage else -1/flow_coeff
                     term_2 = - \
                         np.tan(alpha) if self.is_compressor_stage else np.tan(
                             alpha)
                     self.blade_angles_rad[location][key] = np.arctan(
                         term_1 + term_2)
 
-    def get_work_coeff_at_location(self, location):
-        alpha_3_r = self.blade_angles_rad[location]['alpha_3']
-        alpha_2_r = self.blade_angles_rad[location]['alpha_2']
-        return self.flow_coeff * (np.tan(alpha_3_r) - np.tan(alpha_2_r))
+    def get_flow_coeffs(self):
+        flow_coeff = {'mean': self.axial_velocity /
+                      (self.angular_velocity * self.mean_radius)}
+        locations = ['hub', 'tip']
+        for location in locations:
+            r = self.tip_diameter / 2 if location == 'tip' else self.hub_diameter / 2
+            u = self.angular_velocity * r
+            flow_coeff[location] = self.axial_velocity / u
+        return flow_coeff
+
+    def calculate_work_coeffs_and_reactions(self):
+        for location in ['hub', 'tip']:
+            alpha_2 = self.blade_angles_rad[location]['alpha_2']
+            flow_coeff = self.flow_coeff[location]
+            if self.is_compressor_stage:
+                alpha_1 = self.blade_angles_rad[location]['alpha_1']
+                self.work_coeff[location] = flow_coeff * \
+                    (np.tan(alpha_2) - np.tan(alpha_1))
+                self.reaction[location] = -1 - 0.5 * \
+                    flow_coeff * (np.tan(alpha_2) + np.tan(alpha_1))
+            else:
+                alpha_3 = self.blade_angles_rad[location]['alpha_3']
+                self.work_coeff[location] = flow_coeff * \
+                    (np.tan(alpha_2) - np.tan(alpha_3))
+                self.reaction[location] = 1 - 0.5 * \
+                    flow_coeff * (np.tan(alpha_2) + np.tan(alpha_3))
+
+    def get_d_stag_enthalpy(self):
+        d_stage_enthalpy = {}
+        locations = ['mean', 'hub', 'tip']
+        for location in locations:
+            r = self.tip_diameter / 2 if location == 'tip' else self.hub_diameter / 2
+            r = self.mean_radius if location == 'mean' else r
+            u = self.angular_velocity * r
+            work_coeff = self.work_coeff[location]
+            d_stage_enthalpy[location] = work_coeff * u**2
+        return d_stage_enthalpy
 
     def get_solidity(self):
         inlet = 'alpha_1' if self.is_compressor_stage else 'alpha_2'
@@ -242,20 +269,31 @@ class Stage:
         B = p * w**2 / (2 * s)
         return self.disk_thickness_estimate * np.exp(B * (r_o**2 - r**2))
 
-    def __check_validity(self):
+    def __check_validity(self, check_dp):
         # blade heights cannot be below 10mm
         if self.blade_height < 0.01:
             return False
         # a1 and a3=0 for first stage of lpc and last stage of hpc respectively
 
+        # stagnation enthalpy change stays constant for any location
+        if not len(set(round(v, check_dp) for v in self.d_stag_enthalpy.values())) == 1:
+            return False
+
         # if a compressor stage:
         if self.is_compressor_stage:
-            # abs(b2) has to be less that abs(b1):
-            if np.abs(self.blade_angles_deg['mean']['beta_2']) > np.abs(self.blade_angles_deg['mean']['beta_1']):
-                return False
-            # b1-b2<45 for compressors
-            if np.abs(self.blade_angles_deg['mean']['beta_1'] - self.blade_angles_deg['mean']['beta_2']) > 45:
-                return False
+            for location in ['mean', 'hub', 'tip']:
+                # abs(b2) has to be less that abs(b1):
+                if np.abs(self.blade_angles_deg[location]['beta_2']) > np.abs(self.blade_angles_deg[location]['beta_1']):
+                    return False
+                # b1-b2<45 for compressors
+                if np.abs(self.blade_angles_deg[location]['beta_1'] - self.blade_angles_deg[location]['beta_2']) > 45:
+                    return False
+            # # abs(b2) has to be less that abs(b1):
+            # if np.abs(self.blade_angles_deg['mean']['beta_2']) > np.abs(self.blade_angles_deg['mean']['beta_1']):
+            #     return False
+            # # b1-b2<45 for compressors
+            # if np.abs(self.blade_angles_deg['mean']['beta_1'] - self.blade_angles_deg['mean']['beta_2']) > 45:
+            #     return False
             # solidity for compressors between 0.67 and 1.33
             if not 0.67 <= self.solidity <= 1.33:
                 return False
@@ -264,8 +302,19 @@ class Stage:
                 return False
         # if a turbine stage:
         else:
-            # # 90<a1-a2<120 for turbine (flow deflection)
-            if not 75 < abs(self.blade_angles_deg['mean']['alpha_2'] - self.blade_angles_deg['mean']['alpha_3']) < 120:
+            for location in ['mean', 'hub', 'tip']:
+                # # 90<a1-a2<120 for turbine (flow deflection)
+                if not 75 < abs(self.blade_angles_deg[location]['alpha_2'] - self.blade_angles_deg[location]['alpha_3']) < 120:
+                    return False
+            # # # 90<a1-a2<120 for turbine (flow deflection)
+            # if not 75 < abs(self.blade_angles_deg['mean']['alpha_2'] - self.blade_angles_deg['mean']['alpha_3']) < 120:
+            #     return False
+
+            # reaction has to be greater than 0 at hub for turbines
+            if self.reaction['hub'] < 0:
+                return False
+            # reaction has to be less than 1 at tip for turbines
+            if self.reaction['tip'] > 1:
                 return False
             # # solidity for turbines is between 1 and 2
             if not 1 <= self.solidity <= 2:
