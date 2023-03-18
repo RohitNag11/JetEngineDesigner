@@ -225,7 +225,7 @@ class Engine:
                                       start=0,
                                       end=self.diameter / 10,
                                       min_y=0,
-                                      max_y=3)
+                                      max_y=20)
         # Award points for high mean tip mach number:
         mean_tip_mach_nos = np.mean(
             np.array([self.fan.tip_mach_no, max(self.lpt.tip_mach_nos), max(self.hpt.tip_mach_nos)]))
@@ -246,4 +246,25 @@ class Engine:
                                       end=1,
                                       min_y=-20,
                                       max_y=20)
+        # Award points for low average work coefficients and flow coefficients:
+        for t in turbines:
+            if t.is_low_pressure:
+                optimal_work_coeff_range = (0.8, 1.8)
+                optimal_flow_coeff_range = (0.5, 0.65)
+            else:
+                optimal_work_coeff_range = (1, 2.4)
+                optimal_flow_coeff_range = (0.7, 11)
+            for stage in t.stages:
+                for location in ['mean', 'hub', 'tip']:
+                    score += act.smooth_step_down(stage.work_coeff[location],
+                                                  start=optimal_work_coeff_range[0],
+                                                  end=optimal_work_coeff_range[1],
+                                                  min_y=0,
+                                                  max_y=0.1)
+                    score += act.smooth_step_down(stage.flow_coeff[location],
+                                                  start=optimal_flow_coeff_range[0],
+                                                  end=optimal_flow_coeff_range[1],
+                                                  min_y=0,
+                                                  max_y=0.1)
+
         return score

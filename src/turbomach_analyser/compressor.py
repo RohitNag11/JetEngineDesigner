@@ -52,7 +52,6 @@ class Compressor(TurboComponent):
         self.stages = [Stage(is_compressor_stage=True,
                              is_low_pressure=self.is_low_pressure,
                              number=i + 1,
-                             flow_coeff=self.flow_coeff,
                              work_coeff=self.work_coeff,
                              axial_velocity=self.axial_velocity,
                              angular_velocity=self.angular_velocity,

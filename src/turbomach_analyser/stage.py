@@ -9,7 +9,6 @@ class Stage:
                  is_compressor_stage,
                  is_low_pressure,
                  number,
-                 flow_coeff,
                  work_coeff,
                  axial_velocity,
                  angular_velocity,
@@ -30,8 +29,10 @@ class Stage:
         self.number = number
         self.is_compressor_stage = is_compressor_stage
         self.is_low_pressure = is_low_pressure
-        self.lift_coeff = lift_coeff if lift_coeff else None
-        self.diffusion_factor = diffusion_factor if diffusion_factor else None
+        if lift_coeff:
+            self.lift_coeff = {'mean': lift_coeff}
+        if diffusion_factor:
+            self.diffusion_factor = {'mean': diffusion_factor}
         self.mean_radius = 0.25 * (tip_diameter + hub_diameter)
         self.blade_height = 0.5 * (tip_diameter - hub_diameter)
         self.angular_velocity = angular_velocity
@@ -54,9 +55,11 @@ class Stage:
             val) for key, val in self.blade_angles_rad['hub'].items()}
         self.blade_angles_deg['tip'] = {key: np.rad2deg(
             val) for key, val in self.blade_angles_rad['tip'].items()}
-        self.calculate_work_coeffs_and_reactions()
-        self.d_stag_enthalpy = self.get_d_stag_enthalpy()
         self.solidity = self.get_solidity()
+        self.populate_work_coeffs_and_reactions()
+        self.populate_diffusion_factor()
+        self.populate_lift_coeff()
+        self.d_stag_enthalpy = self.get_d_stag_enthalpy()
         self.rotor_aspect_ratio = self.get_aspect_ratio('rotor')
         self.rotor_chord_length = self.blade_height / self.rotor_aspect_ratio
         self.rotor_thickness = 1.2 * self.rotor_chord_length
@@ -178,7 +181,7 @@ class Stage:
             flow_coeff[location] = self.axial_velocity / u
         return flow_coeff
 
-    def calculate_work_coeffs_and_reactions(self):
+    def populate_work_coeffs_and_reactions(self):
         for location in ['hub', 'tip']:
             alpha_2 = self.blade_angles_rad[location]['alpha_2']
             flow_coeff = self.flow_coeff[location]
@@ -196,6 +199,30 @@ class Stage:
                     (np.tan(alpha_2) - np.tan(alpha_3))
                 self.reaction[location] = 1 - 0.5 * \
                     flow_coeff * (np.tan(alpha_2) + np.tan(alpha_3))
+
+    def populate_diffusion_factor(self):
+        if self.is_compressor_stage:
+            for location in ['hub', 'tip']:
+                a_1 = self.blade_angles_rad[location]['alpha_1']
+                a_2 = self.blade_angles_rad[location]['alpha_2']
+                t2 = np.tan(a_2)
+                t1 = np.tan(a_1)
+                c1 = np.cos(a_1)
+                c2 = np.cos(a_2)
+                s = self.solidity
+                self.diffusion_factor[location] = (
+                    t2 - t1) / (2 * c1 * s) - c1 / c2 + 1
+
+    def populate_lift_coeff(self):
+        if not self.is_compressor_stage:
+            for location in ['hub', 'tip']:
+                a_1 = self.blade_angles_rad[location]['alpha_2']
+                a_2 = self.blade_angles_rad[location]['alpha_3']
+                c1 = np.cos(a_1)
+                t2 = np.tan(a_2)
+                t1 = np.tan(a_1)
+                s = self.solidity
+                self.lift_coeff[location] = np.abs(2 * c1**2 * (t2 - t1) / s)
 
     def get_d_stag_enthalpy(self):
         d_stage_enthalpy = {}
@@ -218,9 +245,9 @@ class Stage:
         t2 = np.tan(alpha_out)
         t1 = np.tan(alpha_in)
         if self.is_compressor_stage:
-            df = self.diffusion_factor
+            df = self.diffusion_factor['mean']
             return c2 * (t2 - t1) / (2 * c1 * (df * c2 - c2 + c1))
-        z = self.lift_coeff
+        z = self.lift_coeff['mean']
         # Note this only works for 50% reaction because 3 === 1 for 50% reaction
         return np.abs((2 / z) * c1**2 * (t2 - t1))
 
@@ -297,27 +324,20 @@ class Stage:
                 # a1 and a2 have to be positive:
                 if self.blade_angles_deg[location]['alpha_1'] <= 0 or self.blade_angles_deg[location]['alpha_2'] <= 0:
                     return False
-            # # abs(b2) has to be less that abs(b1):
-            # if np.abs(self.blade_angles_deg['mean']['beta_2']) > np.abs(self.blade_angles_deg['mean']['beta_1']):
-            #     return False
-            # # b1-b2<45 for compressors
-            # if np.abs(self.blade_angles_deg['mean']['beta_1'] - self.blade_angles_deg['mean']['beta_2']) > 45:
-            #     return False
-            # solidity for compressors between 0.67 and 1.33
+                # Diffusion factor for compressors to be max 0.5
+                if self.diffusion_factor[location] > 0.5:
+                    return False
             if not 0.67 <= self.solidity <= 1.33:
-                return False
-            # Diffusion factor for compressors to be max 0.5
-            if self.diffusion_factor > 0.5:
                 return False
         # if a turbine stage:
         else:
             for location in ['mean', 'hub', 'tip']:
-                # # 90<a1-a2<120 for turbine (flow deflection)
+                # # 75<a1-a2<120 for turbine (flow deflection)
                 if not 75 < abs(self.blade_angles_deg[location]['alpha_2'] - self.blade_angles_deg[location]['alpha_3']) < 120:
                     return False
-            # # # 90<a1-a2<120 for turbine (flow deflection)
-            # if not 75 < abs(self.blade_angles_deg['mean']['alpha_2'] - self.blade_angles_deg['mean']['alpha_3']) < 120:
-            #     return False
+                # lift coefficient for turbines to be about 0.8
+                if not 0.7 <= self.lift_coeff[location] <= 0.9:
+                    return False
 
             # reaction has to be greater than 0 at hub for turbines
             if self.reaction['hub'] < 0:
@@ -327,9 +347,6 @@ class Stage:
                 return False
             # # solidity for turbines is between 1 and 2
             if not 1 <= self.solidity <= 2:
-                return False
-            # lift coefficient for turbines to be about 0.8
-            if not 0.7 <= self.lift_coeff <= 0.9:
                 return False
             # Safety factor on turbine blades to be atleast 1.5-2
             if not self.is_low_pressure:
