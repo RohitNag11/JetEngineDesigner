@@ -1,0 +1,1219 @@
+{
+    "mass_flow": 20.5,
+    "diameter": 2.5,
+    "bypass_ratio": 7,
+    "overall_pressure_ratio": 40,
+    "fan": {
+        "name": "Fan",
+        "hub_tip_ratio": 0.35,
+        "tip_diameter": 2.5,
+        "hub_diameter": 0.875,
+        "inner_fan_tip_diameter": 1.2046459542122738,
+        "inner_fan_mean_radius": 0.5199114885530685,
+        "inner_fan_pressure_ratio": 1.8,
+        "outer_fan_pressure_ratio": 2.5,
+        "pressure_ratio": 4.5,
+        "tip_mach_no": 1.3,
+        "_Fan__SPEC_HEAT_RATIO": 1.4,
+        "_Fan__GAS_CONST": 287,
+        "_Fan__TEMP_SEA": 288.15,
+        "angular_velocity": 306.4631415097091,
+        "is_valid": true
+    },
+    "hpt": {
+        "_TurboComponent__SPEC_HEAT_RATIO": 1.4,
+        "_TurboComponent__GAS_CONST": 287,
+        "mass_flow": 20.5,
+        "axial_velocity": 150,
+        "pressure_ratio": 5.634958352877981,
+        "T0_inlet": 1677.7,
+        "T0_exit": 1268.72,
+        "P0_exit": 410468,
+        "P0_inlet": 1424764.9999999998,
+        "stag_density_exit": 1.1272795341701356,
+        "stag_density_inlet": 2.959014114021622,
+        "axial_mach_no_exit": 0.21102250474489587,
+        "axial_mach_no_inlet": 0.18330891293981075,
+        "density_exit": 1.1025663995765642,
+        "density_inlet": 2.909878326381018,
+        "area_exit": 0.12395323013575682,
+        "area_inlet": 0.046966454036116836,
+        "is_low_pressure": false,
+        "name": "HPT",
+        "blade_length": 0.03,
+        "mean_radius": 0.24916477731154313,
+        "d_stag_enthalpy": 411024.9,
+        "work_coeff": 2.0,
+        "angular_velocity": 1055.5555555555557,
+        "no_of_stages": 3,
+        "d_stag_temp_per_stage": 204.49,
+        "isentropic_efficiency": 0.92,
+        "pressure_ratios": [
+            1.68226782294127,
+            1.7725591551753714,
+            1.8897085790504666
+        ],
+        "hub_diameters": [
+            0.4683295546230862,
+            0.443741757541225,
+            0.4191539604593639
+        ],
+        "tip_diameters": [
+            0.5283295546230863,
+            0.5529173517049475,
+            0.5775051487868086
+        ],
+        "hub_tip_ratios": [
+            0.8864345189948639,
+            0.8025462687559466,
+            0.7258012527505594
+        ],
+        "areas": [
+            0.04696645403611693,
+            0.08545984208593693,
+            0.1239532301357569
+        ],
+        "blade_lengths": [
+            0.030000000000000054,
+            0.054587797081861233,
+            0.07917559416372236
+        ],
+        "tip_mach_nos": [
+            0.3407597796864285,
+            0.3807422942147817,
+            0.42878982907430674
+        ],
+        "mean_tangential_speed": 131.5036324699811,
+        "flow_coeff": 1.1406529019967653,
+        "stages": [
+            {
+                "number": 1,
+                "is_compressor_stage": false,
+                "lift_coeff": 1,
+                "diffusion_factor": null,
+                "flow_coeff": {
+                    "mean": 1.1406529019967653
+                },
+                "work_coeff": {
+                    "mean": 2.0
+                },
+                "angular_velocity": 1055.5555555555557,
+                "hub_diameter": 0.4683295546230862,
+                "tip_diameter": 0.5283295546230863,
+                "axial_velocity": 150,
+                "reaction": {
+                    "mean": 0.5,
+                    "hub": 0.5,
+                    "tip": 0.5
+                },
+                "mean_radius": 0.49832955462308626,
+                "blade_height": 0.030000000000000054,
+                "mean_tangential_speed": 526.0145298799245,
+                "d_stag_enthalpy": 553382.5712895959,
+                "blade_angles_rad": {
+                    "mean": {
+                        "alpha_2": 1.3829293568012566,
+                        "alpha_3": -1.052481436235798,
+                        "beta_2": -1.0524814362357982,
+                        "beta_3": 1.3829293568012566
+                    }
+                },
+                "blade_angles_deg": {
+                    "mean": {
+                        "alpha_2": 79.23601550945355,
+                        "alpha_3": -60.30274431217849,
+                        "beta_2": -60.302744312178504,
+                        "beta_3": 79.23601550945355
+                    }
+                },
+                "solidity": 0.2904635271580997,
+                "aspect_ratio": 1,
+                "no_of_blades": 104.36989785803723,
+                "is_valid": true
+            },
+            {
+                "number": 2,
+                "is_compressor_stage": false,
+                "lift_coeff": 1,
+                "diffusion_factor": null,
+                "flow_coeff": {
+                    "mean": 1.1406529019967653
+                },
+                "work_coeff": {
+                    "mean": 2.0
+                },
+                "angular_velocity": 1055.5555555555557,
+                "hub_diameter": 0.443741757541225,
+                "tip_diameter": 0.5529173517049475,
+                "axial_velocity": 150,
+                "reaction": {
+                    "mean": 0.5,
+                    "hub": 0.5,
+                    "tip": 0.5
+                },
+                "mean_radius": 0.49832955462308626,
+                "blade_height": 0.054587797081861233,
+                "mean_tangential_speed": 526.0145298799245,
+                "d_stag_enthalpy": 553382.5712895959,
+                "blade_angles_rad": {
+                    "mean": {
+                        "alpha_2": 1.3829293568012566,
+                        "alpha_3": -1.052481436235798,
+                        "beta_2": -1.0524814362357982,
+                        "beta_3": 1.3829293568012566
+                    }
+                },
+                "blade_angles_deg": {
+                    "mean": {
+                        "alpha_2": 79.23601550945355,
+                        "alpha_3": -60.30274431217849,
+                        "beta_2": -60.302744312178504,
+                        "beta_3": 79.23601550945355
+                    }
+                },
+                "solidity": 0.2904635271580997,
+                "aspect_ratio": 1,
+                "no_of_blades": 57.358917251151404,
+                "is_valid": true
+            },
+            {
+                "number": 3,
+                "is_compressor_stage": false,
+                "lift_coeff": 1,
+                "diffusion_factor": null,
+                "flow_coeff": {
+                    "mean": 1.1406529019967653
+                },
+                "work_coeff": {
+                    "mean": 2.0
+                },
+                "angular_velocity": 1055.5555555555557,
+                "hub_diameter": 0.4191539604593639,
+                "tip_diameter": 0.5775051487868086,
+                "axial_velocity": 150,
+                "reaction": {
+                    "mean": 0.5,
+                    "hub": 0.5,
+                    "tip": 0.5
+                },
+                "mean_radius": 0.49832955462308626,
+                "blade_height": 0.07917559416372236,
+                "mean_tangential_speed": 526.0145298799245,
+                "d_stag_enthalpy": 553382.5712895959,
+                "blade_angles_rad": {
+                    "mean": {
+                        "alpha_2": 1.3829293568012566,
+                        "alpha_3": -1.052481436235798,
+                        "beta_2": -1.0524814362357982,
+                        "beta_3": 1.3829293568012566
+                    }
+                },
+                "blade_angles_deg": {
+                    "mean": {
+                        "alpha_2": 79.23601550945355,
+                        "alpha_3": -60.30274431217849,
+                        "beta_2": -60.302744312178504,
+                        "beta_3": 79.23601550945355
+                    }
+                },
+                "solidity": 0.2904635271580997,
+                "aspect_ratio": 1,
+                "no_of_blades": 39.54623857026598,
+                "is_valid": true
+            }
+        ],
+        "is_valid": true
+    },
+    "lpt": {
+        "_TurboComponent__SPEC_HEAT_RATIO": 1.4,
+        "_TurboComponent__GAS_CONST": 287,
+        "mass_flow": 20.5,
+        "axial_velocity": 150,
+        "pressure_ratio": 6.725892677869172,
+        "T0_inlet": 1268.72,
+        "T0_exit": 892.91,
+        "P0_exit": 82688,
+        "P0_inlet": 402258.0,
+        "stag_density_exit": 0.3226657762348274,
+        "stag_density_inlet": 1.1047321858371673,
+        "axial_mach_no_exit": 0.25201321313060343,
+        "axial_mach_no_inlet": 0.21102250474489587,
+        "density_exit": 0.31264291657153137,
+        "density_inlet": 1.080513352468084,
+        "area_exit": 0.4371334177833449,
+        "area_inlet": 0.1264830891302692,
+        "is_low_pressure": true,
+        "name": "LPT",
+        "blade_length": 0.031000000000000003,
+        "mean_radius": 0.6493680275037136,
+        "d_stag_enthalpy": 377689.05000000005,
+        "work_coeff": 2.4,
+        "angular_velocity": 306.4631415097091,
+        "no_of_stages": 4,
+        "d_stag_temp_per_stage": 125.27000000000002,
+        "isentropic_efficiency": 0.92,
+        "pressure_ratios": [
+            1.5122132333993978,
+            1.5688429557326018,
+            1.639331066364166,
+            1.7293812967895166
+        ],
+        "hub_diameters": [
+            1.2677360550074273,
+            1.2423567460566818,
+            1.216977437105936,
+            1.1915981281551906
+        ],
+        "tip_diameters": [
+            1.329736055007427,
+            1.3551153639581726,
+            1.3804946729089183,
+            1.4058739818596637
+        ],
+        "hub_tip_ratios": [
+            0.9533742055300941,
+            0.9167903922422274,
+            0.881551708230481,
+            0.8475853053194476
+        ],
+        "areas": [
+            0.12648308913026873,
+            0.23003319868129413,
+            0.3335833082323202,
+            0.43713341778334497
+        ],
+        "blade_lengths": [
+            0.030999999999999917,
+            0.05637930895074539,
+            0.08175861790149108,
+            0.10713792685223655
+        ],
+        "tip_mach_nos": [
+            0.28664951586378196,
+            0.30785649140199983,
+            0.3325580875914186,
+            0.361931764114062
+        ],
+        "mean_tangential_speed": 99.50368285237562,
+        "flow_coeff": 1.5074818911229757,
+        "stages": [
+            {
+                "number": 1,
+                "is_compressor_stage": false,
+                "lift_coeff": 1,
+                "diffusion_factor": null,
+                "flow_coeff": {
+                    "mean": 1.5074818911229757
+                },
+                "work_coeff": {
+                    "mean": 2.4
+                },
+                "angular_velocity": 306.4631415097091,
+                "hub_diameter": 1.2677360550074273,
+                "tip_diameter": 1.329736055007427,
+                "axial_velocity": 150,
+                "reaction": {
+                    "mean": 0.5,
+                    "hub": 0.5,
+                    "tip": 0.5
+                },
+                "mean_radius": 1.2987360550074272,
+                "blade_height": 0.030999999999999917,
+                "mean_tangential_speed": 398.0147314095025,
+                "d_stag_enthalpy": 380197.7434055481,
+                "blade_angles_rad": {
+                    "mean": {
+                        "alpha_2": 1.3526360314776547,
+                        "alpha_3": -1.0769132172392109,
+                        "beta_2": -1.0769132172392109,
+                        "beta_3": 1.3526360314776547
+                    }
+                },
+                "blade_angles_deg": {
+                    "mean": {
+                        "alpha_2": 77.50033582099438,
+                        "alpha_3": -61.70258224966195,
+                        "beta_2": -61.70258224966195,
+                        "beta_3": 77.50033582099438
+                    }
+                },
+                "solidity": 0.3493858184830107,
+                "aspect_ratio": 1,
+                "no_of_blades": 263.23223544280864,
+                "is_valid": true
+            },
+            {
+                "number": 2,
+                "is_compressor_stage": false,
+                "lift_coeff": 1,
+                "diffusion_factor": null,
+                "flow_coeff": {
+                    "mean": 1.5074818911229757
+                },
+                "work_coeff": {
+                    "mean": 2.4
+                },
+                "angular_velocity": 306.4631415097091,
+                "hub_diameter": 1.2423567460566818,
+                "tip_diameter": 1.3551153639581726,
+                "axial_velocity": 150,
+                "reaction": {
+                    "mean": 0.5,
+                    "hub": 0.5,
+                    "tip": 0.5
+                },
+                "mean_radius": 1.2987360550074272,
+                "blade_height": 0.05637930895074539,
+                "mean_tangential_speed": 398.0147314095025,
+                "d_stag_enthalpy": 380197.7434055481,
+                "blade_angles_rad": {
+                    "mean": {
+                        "alpha_2": 1.3526360314776547,
+                        "alpha_3": -1.0769132172392109,
+                        "beta_2": -1.0769132172392109,
+                        "beta_3": 1.3526360314776547
+                    }
+                },
+                "blade_angles_deg": {
+                    "mean": {
+                        "alpha_2": 77.50033582099438,
+                        "alpha_3": -61.70258224966195,
+                        "beta_2": -61.70258224966195,
+                        "beta_3": 77.50033582099438
+                    }
+                },
+                "solidity": 0.3493858184830107,
+                "aspect_ratio": 1,
+                "no_of_blades": 144.73748349516015,
+                "is_valid": true
+            },
+            {
+                "number": 3,
+                "is_compressor_stage": false,
+                "lift_coeff": 1,
+                "diffusion_factor": null,
+                "flow_coeff": {
+                    "mean": 1.5074818911229757
+                },
+                "work_coeff": {
+                    "mean": 2.4
+                },
+                "angular_velocity": 306.4631415097091,
+                "hub_diameter": 1.216977437105936,
+                "tip_diameter": 1.3804946729089183,
+                "axial_velocity": 150,
+                "reaction": {
+                    "mean": 0.5,
+                    "hub": 0.5,
+                    "tip": 0.5
+                },
+                "mean_radius": 1.2987360550074272,
+                "blade_height": 0.08175861790149108,
+                "mean_tangential_speed": 398.0147314095025,
+                "d_stag_enthalpy": 380197.7434055481,
+                "blade_angles_rad": {
+                    "mean": {
+                        "alpha_2": 1.3526360314776547,
+                        "alpha_3": -1.0769132172392109,
+                        "beta_2": -1.0769132172392109,
+                        "beta_3": 1.3526360314776547
+                    }
+                },
+                "blade_angles_deg": {
+                    "mean": {
+                        "alpha_2": 77.50033582099438,
+                        "alpha_3": -61.70258224966195,
+                        "beta_2": -61.70258224966195,
+                        "beta_3": 77.50033582099438
+                    }
+                },
+                "solidity": 0.3493858184830107,
+                "aspect_ratio": 1,
+                "no_of_blades": 99.80843008573196,
+                "is_valid": true
+            },
+            {
+                "number": 4,
+                "is_compressor_stage": false,
+                "lift_coeff": 1,
+                "diffusion_factor": null,
+                "flow_coeff": {
+                    "mean": 1.5074818911229757
+                },
+                "work_coeff": {
+                    "mean": 2.4
+                },
+                "angular_velocity": 306.4631415097091,
+                "hub_diameter": 1.1915981281551906,
+                "tip_diameter": 1.4058739818596637,
+                "axial_velocity": 150,
+                "reaction": {
+                    "mean": 0.5,
+                    "hub": 0.5,
+                    "tip": 0.5
+                },
+                "mean_radius": 1.2987360550074272,
+                "blade_height": 0.10713792685223655,
+                "mean_tangential_speed": 398.0147314095025,
+                "d_stag_enthalpy": 380197.7434055481,
+                "blade_angles_rad": {
+                    "mean": {
+                        "alpha_2": 1.3526360314776547,
+                        "alpha_3": -1.0769132172392109,
+                        "beta_2": -1.0769132172392109,
+                        "beta_3": 1.3526360314776547
+                    }
+                },
+                "blade_angles_deg": {
+                    "mean": {
+                        "alpha_2": 77.50033582099438,
+                        "alpha_3": -61.70258224966195,
+                        "beta_2": -61.70258224966195,
+                        "beta_3": 77.50033582099438
+                    }
+                },
+                "solidity": 0.3493858184830107,
+                "aspect_ratio": 1,
+                "no_of_blades": 76.16536495037376,
+                "is_valid": true
+            }
+        ],
+        "is_valid": true
+    },
+    "lpc": {
+        "_TurboComponent__SPEC_HEAT_RATIO": 1.4,
+        "_TurboComponent__GAS_CONST": 287,
+        "mass_flow": 20.5,
+        "axial_velocity": 190,
+        "pressure_ratio": 1.3888888888888888,
+        "T0_inlet": 260.73,
+        "T0_exit": 331.86,
+        "P0_exit": 91802,
+        "P0_inlet": 66097.44,
+        "stag_density_exit": 0.9638630621913316,
+        "stag_density_inlet": 0.8833071337765006,
+        "axial_mach_no_exit": 0.5350067963241633,
+        "axial_mach_no_inlet": 0.6083581073059371,
+        "density_exit": 0.8386383992531045,
+        "density_inlet": 0.7388918897897302,
+        "area_exit": 0.1286546584775952,
+        "area_inlet": 0.1460223590663708,
+        "is_low_pressure": true,
+        "name": "LPC",
+        "per_stage_pressure_ratio": 1.3,
+        "no_of_stages": 2,
+        "mean_radius": 0.5199114885530685,
+        "angular_velocity": 306.4631415097091,
+        "tangential_speed": 159.3337080889625,
+        "hub_diameters": [
+            0.9951227141593981,
+            1.0004393025782006
+        ],
+        "tip_diameters": [
+            1.0845232400528757,
+            1.079206651634073
+        ],
+        "hub_tip_ratios": [
+            0.917566980040816,
+            0.927013654950507
+        ],
+        "areas": [
+            0.14602235906637065,
+            0.1286546584775951
+        ],
+        "blade_lengths": [
+            0.04470026294673879,
+            0.03938367452793623
+        ],
+        "d_stag_enthalpy": 71485.65,
+        "flow_coeff": 1.192465814540105,
+        "work_coeff": 0.5,
+        "stages": [
+            {
+                "number": 1,
+                "is_compressor_stage": true,
+                "lift_coeff": null,
+                "diffusion_factor": 0.45,
+                "flow_coeff": {
+                    "mean": 1.192465814540105
+                },
+                "work_coeff": {
+                    "mean": 0.5
+                },
+                "angular_velocity": 306.4631415097091,
+                "hub_diameter": 0.9951227141593981,
+                "tip_diameter": 1.0845232400528757,
+                "axial_velocity": 190,
+                "reaction": {
+                    "mean": 0.5,
+                    "hub": 0.5,
+                    "tip": 0.5
+                },
+                "mean_radius": 1.039822977106137,
+                "blade_height": 0.04470026294673879,
+                "mean_tangential_speed": 318.667416177925,
+                "d_stag_enthalpy": 50774.46106675744,
+                "blade_angles_rad": {
+                    "mean": {
+                        "alpha_1": 0.3970321538202116,
+                        "alpha_2": 0.8991255743643289,
+                        "beta_1": 0.899125574364329,
+                        "beta_2": 0.39703215382021173
+                    }
+                },
+                "blade_angles_deg": {
+                    "mean": {
+                        "alpha_1": 22.74826674488703,
+                        "alpha_2": 51.51610066335209,
+                        "beta_1": 51.5161006633521,
+                        "beta_2": 22.748266744887037
+                    }
+                },
+                "solidity": 0.41491606789092006,
+                "aspect_ratio": 1,
+                "no_of_blades": 146.16022414914394,
+                "is_valid": true
+            },
+            {
+                "number": 2,
+                "is_compressor_stage": true,
+                "lift_coeff": null,
+                "diffusion_factor": 0.45,
+                "flow_coeff": {
+                    "mean": 1.192465814540105
+                },
+                "work_coeff": {
+                    "mean": 0.5
+                },
+                "angular_velocity": 306.4631415097091,
+                "hub_diameter": 1.0004393025782006,
+                "tip_diameter": 1.079206651634073,
+                "axial_velocity": 190,
+                "reaction": {
+                    "mean": 0.5,
+                    "hub": 0.5,
+                    "tip": 0.5
+                },
+                "mean_radius": 1.039822977106137,
+                "blade_height": 0.03938367452793623,
+                "mean_tangential_speed": 318.667416177925,
+                "d_stag_enthalpy": 50774.46106675744,
+                "blade_angles_rad": {
+                    "mean": {
+                        "alpha_1": 0.3970321538202116,
+                        "alpha_2": 0.8991255743643289,
+                        "beta_1": 0.899125574364329,
+                        "beta_2": 0.39703215382021173
+                    }
+                },
+                "blade_angles_deg": {
+                    "mean": {
+                        "alpha_1": 22.74826674488703,
+                        "alpha_2": 51.51610066335209,
+                        "beta_1": 51.5161006633521,
+                        "beta_2": 22.748266744887037
+                    }
+                },
+                "solidity": 0.41491606789092006,
+                "aspect_ratio": 1,
+                "no_of_blades": 165.89108380901948,
+                "is_valid": true
+            }
+        ],
+        "is_valid": true
+    },
+    "hpc": {
+        "_TurboComponent__SPEC_HEAT_RATIO": 1.4,
+        "_TurboComponent__GAS_CONST": 287,
+        "mass_flow": 20.5,
+        "axial_velocity": 190,
+        "pressure_ratio": 16.0,
+        "T0_inlet": 331.86,
+        "T0_exit": 758.17,
+        "P0_exit": 1468830,
+        "P0_inlet": 91801.875,
+        "stag_density_exit": 6.750299490167022,
+        "stag_density_inlet": 0.9638617497702212,
+        "axial_mach_no_exit": 0.34839654678578325,
+        "axial_mach_no_inlet": 0.5350067963241633,
+        "density_exit": 6.357414336701013,
+        "density_inlet": 0.8386372573411646,
+        "area_exit": 0.016971481034236624,
+        "area_inlet": 0.12865483365737565,
+        "is_low_pressure": false,
+        "name": "HPC",
+        "per_stage_pressure_ratio": 1.3,
+        "no_of_stages": 11,
+        "mean_radius": 0.22509125818242592,
+        "angular_velocity": 1055.5555555555557,
+        "tangential_speed": 237.5963280814496,
+        "hub_diameters": [
+            0.3592147333661803,
+            0.3671115116660475,
+            0.3750082899659146,
+            0.3829050682657818,
+            0.3908018465656489,
+            0.3986986248655161,
+            0.40659540316538323,
+            0.4144921814652504,
+            0.4223889597651176,
+            0.4302857380649847,
+            0.4381825163648519
+        ],
+        "tip_diameters": [
+            0.5411502993635234,
+            0.5332535210636563,
+            0.5253567427637891,
+            0.517459964463922,
+            0.5095631861640548,
+            0.5016664078641877,
+            0.49376962956432047,
+            0.48587285126445334,
+            0.47797607296458616,
+            0.47007929466471904,
+            0.46218251636485186
+        ],
+        "hub_tip_ratios": [
+            0.6637984563413759,
+            0.6884371076140051,
+            0.7138164592560029,
+            0.7399704219870685,
+            0.7669350086052519,
+            0.7947484994320224,
+            0.8234516236329567,
+            0.8530877582202026,
+            0.8837031467816024,
+            0.9153471402561629,
+            0.9480724623926403
+        ],
+        "areas": [
+            0.12865483365737562,
+            0.11748649839506169,
+            0.10631816313274776,
+            0.09514982787043388,
+            0.08398149260812002,
+            0.07281315734580614,
+            0.0616448220834922,
+            0.050476486821178314,
+            0.03930815155886437,
+            0.02813981629655053,
+            0.01697148103423661
+        ],
+        "blade_lengths": [
+            0.09096778299867156,
+            0.08307100469880441,
+            0.07517422639893723,
+            0.06727744809907008,
+            0.05938066979920295,
+            0.0514838914993358,
+            0.04358711319946862,
+            0.03569033489960147,
+            0.027793556599734287,
+            0.019896778299867163,
+            0.011999999999999983
+        ],
+        "d_stag_enthalpy": 428441.54999999993,
+        "flow_coeff": 0.7996756580129755,
+        "work_coeff": 0.5,
+        "stages": [
+            {
+                "number": 1,
+                "is_compressor_stage": true,
+                "lift_coeff": null,
+                "diffusion_factor": 0.45,
+                "flow_coeff": {
+                    "mean": 0.7996756580129755
+                },
+                "work_coeff": {
+                    "mean": 0.5
+                },
+                "angular_velocity": 1055.5555555555557,
+                "hub_diameter": 0.3592147333661803,
+                "tip_diameter": 0.5411502993635234,
+                "axial_velocity": 190,
+                "reaction": {
+                    "mean": 0.5,
+                    "hub": 0.5,
+                    "tip": 0.5
+                },
+                "mean_radius": 0.45018251636485185,
+                "blade_height": 0.09096778299867156,
+                "mean_tangential_speed": 475.1926561628992,
+                "d_stag_enthalpy": 112904.03023557567,
+                "blade_angles_rad": {
+                    "mean": {
+                        "alpha_1": 0.5587815830799447,
+                        "alpha_2": 1.0810073592472507,
+                        "beta_1": 1.0810073592472507,
+                        "beta_2": 0.5587815830799447
+                    }
+                },
+                "blade_angles_deg": {
+                    "mean": {
+                        "alpha_1": 32.015826380119606,
+                        "alpha_2": 61.937159307449846,
+                        "beta_1": 61.937159307449846,
+                        "beta_2": 32.015826380119606
+                    }
+                },
+                "solidity": 0.42332353706222176,
+                "aspect_ratio": 1,
+                "no_of_blades": 31.094307007724677,
+                "is_valid": true
+            },
+            {
+                "number": 2,
+                "is_compressor_stage": true,
+                "lift_coeff": null,
+                "diffusion_factor": 0.45,
+                "flow_coeff": {
+                    "mean": 0.7996756580129755
+                },
+                "work_coeff": {
+                    "mean": 0.5
+                },
+                "angular_velocity": 1055.5555555555557,
+                "hub_diameter": 0.3671115116660475,
+                "tip_diameter": 0.5332535210636563,
+                "axial_velocity": 190,
+                "reaction": {
+                    "mean": 0.5,
+                    "hub": 0.5,
+                    "tip": 0.5
+                },
+                "mean_radius": 0.4501825163648519,
+                "blade_height": 0.08307100469880441,
+                "mean_tangential_speed": 475.19265616289925,
+                "d_stag_enthalpy": 112904.0302355757,
+                "blade_angles_rad": {
+                    "mean": {
+                        "alpha_1": 0.5587815830799447,
+                        "alpha_2": 1.0810073592472507,
+                        "beta_1": 1.0810073592472507,
+                        "beta_2": 0.5587815830799447
+                    }
+                },
+                "blade_angles_deg": {
+                    "mean": {
+                        "alpha_1": 32.015826380119606,
+                        "alpha_2": 61.937159307449846,
+                        "beta_1": 61.937159307449846,
+                        "beta_2": 32.015826380119606
+                    }
+                },
+                "solidity": 0.42332353706222176,
+                "aspect_ratio": 1,
+                "no_of_blades": 34.05015002079879,
+                "is_valid": true
+            },
+            {
+                "number": 3,
+                "is_compressor_stage": true,
+                "lift_coeff": null,
+                "diffusion_factor": 0.45,
+                "flow_coeff": {
+                    "mean": 0.7996756580129755
+                },
+                "work_coeff": {
+                    "mean": 0.5
+                },
+                "angular_velocity": 1055.5555555555557,
+                "hub_diameter": 0.3750082899659146,
+                "tip_diameter": 0.5253567427637891,
+                "axial_velocity": 190,
+                "reaction": {
+                    "mean": 0.5,
+                    "hub": 0.5,
+                    "tip": 0.5
+                },
+                "mean_radius": 0.45018251636485185,
+                "blade_height": 0.07517422639893723,
+                "mean_tangential_speed": 475.1926561628992,
+                "d_stag_enthalpy": 112904.03023557567,
+                "blade_angles_rad": {
+                    "mean": {
+                        "alpha_1": 0.5587815830799447,
+                        "alpha_2": 1.0810073592472507,
+                        "beta_1": 1.0810073592472507,
+                        "beta_2": 0.5587815830799447
+                    }
+                },
+                "blade_angles_deg": {
+                    "mean": {
+                        "alpha_1": 32.015826380119606,
+                        "alpha_2": 61.937159307449846,
+                        "beta_1": 61.937159307449846,
+                        "beta_2": 32.015826380119606
+                    }
+                },
+                "solidity": 0.42332353706222176,
+                "aspect_ratio": 1,
+                "no_of_blades": 37.626994089197034,
+                "is_valid": true
+            },
+            {
+                "number": 4,
+                "is_compressor_stage": true,
+                "lift_coeff": null,
+                "diffusion_factor": 0.45,
+                "flow_coeff": {
+                    "mean": 0.7996756580129755
+                },
+                "work_coeff": {
+                    "mean": 0.5
+                },
+                "angular_velocity": 1055.5555555555557,
+                "hub_diameter": 0.3829050682657818,
+                "tip_diameter": 0.517459964463922,
+                "axial_velocity": 190,
+                "reaction": {
+                    "mean": 0.5,
+                    "hub": 0.5,
+                    "tip": 0.5
+                },
+                "mean_radius": 0.45018251636485185,
+                "blade_height": 0.06727744809907008,
+                "mean_tangential_speed": 475.1926561628992,
+                "d_stag_enthalpy": 112904.03023557567,
+                "blade_angles_rad": {
+                    "mean": {
+                        "alpha_1": 0.5587815830799447,
+                        "alpha_2": 1.0810073592472507,
+                        "beta_1": 1.0810073592472507,
+                        "beta_2": 0.5587815830799447
+                    }
+                },
+                "blade_angles_deg": {
+                    "mean": {
+                        "alpha_1": 32.015826380119606,
+                        "alpha_2": 61.937159307449846,
+                        "beta_1": 61.937159307449846,
+                        "beta_2": 32.015826380119606
+                    }
+                },
+                "solidity": 0.42332353706222176,
+                "aspect_ratio": 1,
+                "no_of_blades": 42.04351164163535,
+                "is_valid": true
+            },
+            {
+                "number": 5,
+                "is_compressor_stage": true,
+                "lift_coeff": null,
+                "diffusion_factor": 0.45,
+                "flow_coeff": {
+                    "mean": 0.7996756580129755
+                },
+                "work_coeff": {
+                    "mean": 0.5
+                },
+                "angular_velocity": 1055.5555555555557,
+                "hub_diameter": 0.3908018465656489,
+                "tip_diameter": 0.5095631861640548,
+                "axial_velocity": 190,
+                "reaction": {
+                    "mean": 0.5,
+                    "hub": 0.5,
+                    "tip": 0.5
+                },
+                "mean_radius": 0.45018251636485185,
+                "blade_height": 0.05938066979920295,
+                "mean_tangential_speed": 475.1926561628992,
+                "d_stag_enthalpy": 112904.03023557567,
+                "blade_angles_rad": {
+                    "mean": {
+                        "alpha_1": 0.5587815830799447,
+                        "alpha_2": 1.0810073592472507,
+                        "beta_1": 1.0810073592472507,
+                        "beta_2": 0.5587815830799447
+                    }
+                },
+                "blade_angles_deg": {
+                    "mean": {
+                        "alpha_1": 32.015826380119606,
+                        "alpha_2": 61.937159307449846,
+                        "beta_1": 61.937159307449846,
+                        "beta_2": 32.015826380119606
+                    }
+                },
+                "solidity": 0.42332353706222176,
+                "aspect_ratio": 1,
+                "no_of_blades": 47.63469630668831,
+                "is_valid": true
+            },
+            {
+                "number": 6,
+                "is_compressor_stage": true,
+                "lift_coeff": null,
+                "diffusion_factor": 0.45,
+                "flow_coeff": {
+                    "mean": 0.7996756580129755
+                },
+                "work_coeff": {
+                    "mean": 0.5
+                },
+                "angular_velocity": 1055.5555555555557,
+                "hub_diameter": 0.3986986248655161,
+                "tip_diameter": 0.5016664078641877,
+                "axial_velocity": 190,
+                "reaction": {
+                    "mean": 0.5,
+                    "hub": 0.5,
+                    "tip": 0.5
+                },
+                "mean_radius": 0.4501825163648519,
+                "blade_height": 0.0514838914993358,
+                "mean_tangential_speed": 475.19265616289925,
+                "d_stag_enthalpy": 112904.0302355757,
+                "blade_angles_rad": {
+                    "mean": {
+                        "alpha_1": 0.5587815830799447,
+                        "alpha_2": 1.0810073592472507,
+                        "beta_1": 1.0810073592472507,
+                        "beta_2": 0.5587815830799447
+                    }
+                },
+                "blade_angles_deg": {
+                    "mean": {
+                        "alpha_1": 32.015826380119606,
+                        "alpha_2": 61.937159307449846,
+                        "beta_1": 61.937159307449846,
+                        "beta_2": 32.015826380119606
+                    }
+                },
+                "solidity": 0.42332353706222176,
+                "aspect_ratio": 1,
+                "no_of_blades": 54.94107166334276,
+                "is_valid": true
+            },
+            {
+                "number": 7,
+                "is_compressor_stage": true,
+                "lift_coeff": null,
+                "diffusion_factor": 0.45,
+                "flow_coeff": {
+                    "mean": 0.7996756580129755
+                },
+                "work_coeff": {
+                    "mean": 0.5
+                },
+                "angular_velocity": 1055.5555555555557,
+                "hub_diameter": 0.40659540316538323,
+                "tip_diameter": 0.49376962956432047,
+                "axial_velocity": 190,
+                "reaction": {
+                    "mean": 0.5,
+                    "hub": 0.5,
+                    "tip": 0.5
+                },
+                "mean_radius": 0.45018251636485185,
+                "blade_height": 0.04358711319946862,
+                "mean_tangential_speed": 475.1926561628992,
+                "d_stag_enthalpy": 112904.03023557567,
+                "blade_angles_rad": {
+                    "mean": {
+                        "alpha_1": 0.5587815830799447,
+                        "alpha_2": 1.0810073592472507,
+                        "beta_1": 1.0810073592472507,
+                        "beta_2": 0.5587815830799447
+                    }
+                },
+                "blade_angles_deg": {
+                    "mean": {
+                        "alpha_1": 32.015826380119606,
+                        "alpha_2": 61.937159307449846,
+                        "beta_1": 61.937159307449846,
+                        "beta_2": 32.015826380119606
+                    }
+                },
+                "solidity": 0.42332353706222176,
+                "aspect_ratio": 1,
+                "no_of_blades": 64.89487292788307,
+                "is_valid": true
+            },
+            {
+                "number": 8,
+                "is_compressor_stage": true,
+                "lift_coeff": null,
+                "diffusion_factor": 0.45,
+                "flow_coeff": {
+                    "mean": 0.7996756580129755
+                },
+                "work_coeff": {
+                    "mean": 0.5
+                },
+                "angular_velocity": 1055.5555555555557,
+                "hub_diameter": 0.4144921814652504,
+                "tip_diameter": 0.48587285126445334,
+                "axial_velocity": 190,
+                "reaction": {
+                    "mean": 0.5,
+                    "hub": 0.5,
+                    "tip": 0.5
+                },
+                "mean_radius": 0.45018251636485185,
+                "blade_height": 0.03569033489960147,
+                "mean_tangential_speed": 475.1926561628992,
+                "d_stag_enthalpy": 112904.03023557567,
+                "blade_angles_rad": {
+                    "mean": {
+                        "alpha_1": 0.5587815830799447,
+                        "alpha_2": 1.0810073592472507,
+                        "beta_1": 1.0810073592472507,
+                        "beta_2": 0.5587815830799447
+                    }
+                },
+                "blade_angles_deg": {
+                    "mean": {
+                        "alpha_1": 32.015826380119606,
+                        "alpha_2": 61.937159307449846,
+                        "beta_1": 61.937159307449846,
+                        "beta_2": 32.015826380119606
+                    }
+                },
+                "solidity": 0.42332353706222176,
+                "aspect_ratio": 1,
+                "no_of_blades": 79.25339396028912,
+                "is_valid": true
+            },
+            {
+                "number": 9,
+                "is_compressor_stage": true,
+                "lift_coeff": null,
+                "diffusion_factor": 0.45,
+                "flow_coeff": {
+                    "mean": 0.7996756580129755
+                },
+                "work_coeff": {
+                    "mean": 0.5
+                },
+                "angular_velocity": 1055.5555555555557,
+                "hub_diameter": 0.4223889597651176,
+                "tip_diameter": 0.47797607296458616,
+                "axial_velocity": 190,
+                "reaction": {
+                    "mean": 0.5,
+                    "hub": 0.5,
+                    "tip": 0.5
+                },
+                "mean_radius": 0.45018251636485185,
+                "blade_height": 0.027793556599734287,
+                "mean_tangential_speed": 475.1926561628992,
+                "d_stag_enthalpy": 112904.03023557567,
+                "blade_angles_rad": {
+                    "mean": {
+                        "alpha_1": 0.5587815830799447,
+                        "alpha_2": 1.0810073592472507,
+                        "beta_1": 1.0810073592472507,
+                        "beta_2": 0.5587815830799447
+                    }
+                },
+                "blade_angles_deg": {
+                    "mean": {
+                        "alpha_1": 32.015826380119606,
+                        "alpha_2": 61.937159307449846,
+                        "beta_1": 61.937159307449846,
+                        "beta_2": 32.015826380119606
+                    }
+                },
+                "solidity": 0.42332353706222176,
+                "aspect_ratio": 1,
+                "no_of_blades": 101.77107640840082,
+                "is_valid": true
+            },
+            {
+                "number": 10,
+                "is_compressor_stage": true,
+                "lift_coeff": null,
+                "diffusion_factor": 0.45,
+                "flow_coeff": {
+                    "mean": 0.7996756580129755
+                },
+                "work_coeff": {
+                    "mean": 0.5
+                },
+                "angular_velocity": 1055.5555555555557,
+                "hub_diameter": 0.4302857380649847,
+                "tip_diameter": 0.47007929466471904,
+                "axial_velocity": 190,
+                "reaction": {
+                    "mean": 0.5,
+                    "hub": 0.5,
+                    "tip": 0.5
+                },
+                "mean_radius": 0.45018251636485185,
+                "blade_height": 0.019896778299867163,
+                "mean_tangential_speed": 475.1926561628992,
+                "d_stag_enthalpy": 112904.03023557567,
+                "blade_angles_rad": {
+                    "mean": {
+                        "alpha_1": 0.5587815830799447,
+                        "alpha_2": 1.0810073592472507,
+                        "beta_1": 1.0810073592472507,
+                        "beta_2": 0.5587815830799447
+                    }
+                },
+                "blade_angles_deg": {
+                    "mean": {
+                        "alpha_1": 32.015826380119606,
+                        "alpha_2": 61.937159307449846,
+                        "beta_1": 61.937159307449846,
+                        "beta_2": 32.015826380119606
+                    }
+                },
+                "solidity": 0.42332353706222176,
+                "aspect_ratio": 1,
+                "no_of_blades": 142.16272251431053,
+                "is_valid": true
+            },
+            {
+                "number": 11,
+                "is_compressor_stage": true,
+                "lift_coeff": null,
+                "diffusion_factor": 0.45,
+                "flow_coeff": {
+                    "mean": 0.7996756580129755
+                },
+                "work_coeff": {
+                    "mean": 0.5
+                },
+                "angular_velocity": 1055.5555555555557,
+                "hub_diameter": 0.4381825163648519,
+                "tip_diameter": 0.46218251636485186,
+                "axial_velocity": 190,
+                "reaction": {
+                    "mean": 0.5,
+                    "hub": 0.5,
+                    "tip": 0.5
+                },
+                "mean_radius": 0.45018251636485185,
+                "blade_height": 0.011999999999999983,
+                "mean_tangential_speed": 475.1926561628992,
+                "d_stag_enthalpy": 112904.03023557567,
+                "blade_angles_rad": {
+                    "mean": {
+                        "alpha_1": 0.5587815830799447,
+                        "alpha_2": 1.0810073592472507,
+                        "beta_1": 1.0810073592472507,
+                        "beta_2": 0.5587815830799447
+                    }
+                },
+                "blade_angles_deg": {
+                    "mean": {
+                        "alpha_1": 32.015826380119606,
+                        "alpha_2": 61.937159307449846,
+                        "beta_1": 61.937159307449846,
+                        "beta_2": 32.015826380119606
+                    }
+                },
+                "solidity": 0.42332353706222176,
+                "aspect_ratio": 1,
+                "no_of_blades": 235.71501436439792,
+                "is_valid": true
+            }
+        ],
+        "is_valid": true
+    },
+    "is_valid": true,
+    "score": 9.04291309636989
+}

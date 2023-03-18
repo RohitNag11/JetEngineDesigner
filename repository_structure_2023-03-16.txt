@@ -1,0 +1,40 @@
+.
+├── LICENSE
+├── repository_structure_2023-03-16.txt
+├── data
+│   ├── EngineData
+│   │   └── ed_hav_hmbl_hwc_lmbl_lwc_mbl.json
+│   └── VariablesData
+│       ├── Tried
+│       │   └── ed_hav_hmbl_hwc_lmbl_lwc_mbl.csv
+│       └── Valid
+│           └── ed_hav_hmbl_hwc_lmbl_lwc_mbl.csv
+├── engine_design.py
+├── engine_iteration.py
+├── flight_phases_analysis.py
+├── mission_profile_plot.py
+├── requirements.txt
+├── src
+│   ├── __init__.py
+│   ├── flight_analyser
+│   │   ├── __init__.py
+│   │   ├── flight_analysis.py
+│   │   └── phase.py
+│   ├── turbomach_analyser
+│   │   ├── __init__.py
+│   │   ├── compressor.py
+│   │   ├── engine.py
+│   │   ├── fan.py
+│   │   ├── stage.py
+│   │   ├── turbine.py
+│   │   └── turbo_component.py
+│   └── utils
+│       ├── __init__.py
+│       ├── activation.py
+│       ├── formatter.py
+│       ├── geometry.py
+│       ├── plots.py
+│       ├── thermo.py
+│       └── unit_conv.py
+└── test.py
+
