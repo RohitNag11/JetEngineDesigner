@@ -89,6 +89,8 @@ def main(engine_data_dir_path, engine_variables_path=None):
     f.save_obj_to_file(
         engine, f'{engine_data_dir_path}/{engine_name}.json')
     plots.draw_engine(engine)
+    plots.plot_hpt_stage_disk_stresses(engine, stage_no=1)
+    plots.plot_hpt_stage_disk_profile(engine, stage_no=1)
 
 
 if __name__ == '__main__':

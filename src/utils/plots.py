@@ -85,7 +85,7 @@ def draw_engine_casing(ax, diameter):
     ax.axhline(-diameter / 2, color='black', linestyle='-')
 
 
-def plot_bezier_curve(start_point, start_angle, end_angle, chord_length, color, control_point_distance=None):
+def plot_bezier_curve(start_point, start_angle, end_angle, chord_length, color, control_point_distance=None, label=None):
     # Set the default control point distance to one-third of the chord length
     if control_point_distance is None:
         control_point_distance = chord_length/3
@@ -106,7 +106,7 @@ def plot_bezier_curve(start_point, start_angle, end_angle, chord_length, color, 
         3*(1 - t)*(t**2)*end_point[1] + (t**3)*end_point[1]
 
     # Plot the curve
-    plt.plot(x, y, color)
+    plt.plot(x, y, color, label=label)
 
 
 def get_bezier_curve_geometry(end_angle, chord_length):
@@ -135,7 +135,7 @@ def plot_compressor_blades(stage_angles, rotor_chord_lengths, stator_chord_lengt
         rotor_end = (rotor_start[0] + rotor_width, rotor_height)
         # Calculate the rotor and stator curves using the plot_bezier_curve() function
         plot_bezier_curve(rotor_start, beta_1,
-                          beta_2, rotor_chord_length, 'r')
+                          beta_2, rotor_chord_length, 'r', label=f'Rotor {i+1}')
 
         stator_chord_length = stator_chord_lengths[i]
         stator_width, stator_height = get_bezier_curve_geometry(
@@ -145,27 +145,72 @@ def plot_compressor_blades(stage_angles, rotor_chord_lengths, stator_chord_lengt
                         0.5*(stator_thickness - stator_width), rotor_end[1])
         stator_end = (stator_start[0] + stator_width, stator_height)
         plot_bezier_curve(stator_start, alpha_2,
-                          alpha_1, stator_chord_length, 'b')
-
-        # # Plot the rotor and stator lines
-        # plt.plot([rotor_start[0], rotor_end[0]], [
-        #          rotor_start[1], rotor_end[1]], 'r--')
-        # plt.plot([stator_start[0], stator_end[0]], [
-        #          stator_start[1], stator_end[1]], 'b--')
-
-        # Set the x and y limits for the plot
-        # plt.xlim(-chord_length*2, chord_length*3)
-        # plt.ylim(-chord_length*2, chord_length*2)
-
-        # Add labels for the rotor and stator
-        # plt.text(chord_length/2, -chord_length*2.2,
-        #          f'Rotor {i+1}', ha='center', va='top', color='r')
-        # plt.text(chord_length*2.5, -chord_length*2.2,
-        #          f'Stator {i+1}', ha='center', va='top', color='b')
+                          alpha_1, stator_chord_length, 'b', label=f'Rotor {i+1}')
 
         start_x = stator_end[0] + stator_width
 
+    plt.legend()
     plt.axis('off')
+    plt.show()
+
+
+def plot_hpt_stage_disk_stresses(engine, stage_no=1):
+    stage = engine.hpt.stages[stage_no-1]
+    r = stage.r
+    radial_stress = stage.radial_stress
+    hoop_stress = stage.hoop_stress
+    von_misses_stress = stage.von_misses_stress
+    yield_stress = stage.yield_strength
+
+    fig, ax = plt.subplots()
+    ax.plot(r, radial_stress, label='Radial')
+    ax.plot(r, hoop_stress, label='Hoop')
+    ax.plot(r, von_misses_stress, label='Von Misses')
+    ax.axhline(yield_stress, color='r', ls='--', label='Yield Stress')
+    ax.set_xlabel('Radius (m)')
+    ax.set_ylabel('Stress (Pa)')
+    ax.set_title('HPT Stage 1 Disk Stresses')
+    ax.legend()
+    plt.show()
+
+
+def plot_hpt_stage_disk_profile(engine, stage_no=1):
+    stage = engine.hpt.stages[stage_no-1]
+    r = stage.r
+    thickness = stage.disk_thickness
+
+    # Calculate the inner and outer radii of the annulus
+    inner_wall = - thickness / 2
+    outer_wall = thickness / 2
+
+    inner_wall_points = np.array([inner_wall, r]).T
+    outer_wall_points = np.array([outer_wall, r]).T
+
+    # Combine the arrays into a single list of points
+    polygon_points = np.append(
+        inner_wall_points, outer_wall_points[::-1], axis=0)
+    # Create a polygon using the combined points
+    polygon = Polygon(polygon_points, closed=True,
+                      edgecolor='b', facecolor='b', alpha=0.2)
+
+    # Create a polar plot
+    fig, ax = plt.subplots()
+
+    # Set the title
+    ax.set_title(f'HPT Rotor {stage_no} Disk Cross-Sectionional Profile')
+
+    # Plot the inner and outer radii
+    # ax.plot(inner_wall, r)
+    # ax.plot(outer_wall, r)
+    ax.add_patch(polygon)
+
+    ax.set_ylabel('Radius (m)')
+    ax.set_xlabel('z (m)')
+    ax.set_xlim(1.3*min(inner_wall_points[:, 0]),
+                1.3*max(outer_wall_points[:, 0]))
+    ax.set_ylim(0, 1.3*max(r))
+
+    # Show the plot
     plt.show()
 
 

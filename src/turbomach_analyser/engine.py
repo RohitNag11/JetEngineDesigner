@@ -199,33 +199,39 @@ class Engine:
         turbo_machines = compressors + turbines
         # TODO
         score = 0
+        max_score = 0
         # Award points for fewer stages:
         score += act.smooth_step_down(len(self.lpc.stages),
                                       start=1,
                                       end=4,
                                       min_y=0,
                                       max_y=1)
+        max_score += 1
         score += act.smooth_step_down(len(self.hpc.stages),
                                       start=9,
                                       end=14,
                                       min_y=0,
                                       max_y=3)
+        max_score += 3
         score += act.smooth_step_down(len(self.hpt.stages),
                                       start=0,
                                       end=3,
-                                      min_y=-10,
-                                      max_y=10)
+                                      min_y=-3,
+                                      max_y=3)
+        max_score += 3
         score += act.smooth_step_down(len(self.lpt.stages),
                                       start=3,
                                       end=6,
                                       min_y=0,
                                       max_y=1)
+        max_score += 1
         # Award points for similar hpc and hpt mean radii:
         score += act.smooth_step_down(abs(self.hpc.mean_radius - self.hpt.mean_radius),
                                       start=0,
                                       end=self.diameter / 10,
                                       min_y=0,
-                                      max_y=20)
+                                      max_y=10)
+        max_score += 10
         # Award points for high mean tip mach number:
         mean_tip_mach_nos = np.mean(
             np.array([self.fan.tip_mach_no, max(self.lpt.tip_mach_nos), max(self.hpt.tip_mach_nos)]))
@@ -233,7 +239,8 @@ class Engine:
                                     start=0.6,
                                     end=1.2,
                                     min_y=0,
-                                    max_y=1)
+                                    max_y=2)
+        max_score += 2
         # Award points fot similar OPR and turbine pressure ratio:
         turbine_pressure_ratios = np.prod(
             np.array([t.pressure_ratio for t in turbines]))
@@ -246,6 +253,7 @@ class Engine:
                                       end=1,
                                       min_y=-20,
                                       max_y=20)
+        max_score += 20
         # Award points for low average work coefficients and flow coefficients:
         for t in turbines:
             if t.is_low_pressure:
@@ -266,5 +274,35 @@ class Engine:
                                                   end=optimal_flow_coeff_range[1],
                                                   min_y=0,
                                                   max_y=0.1)
-
-        return score
+                    # award points for zweifel efficiency
+                    zwei_eff = np.abs(stage.lift_coeff[location] - 0.8)
+                    score += act.smooth_step_down(zwei_eff,
+                                                  start=0,
+                                                  end=0.5,
+                                                  min_y=-0.1,
+                                                  max_y=0.1)
+                    max_score += 0.3
+        for c in compressors:
+            optimal_work_coeff_range = (0.35, 0.5)
+            optimal_flow_coeff_range = (0.4, 0.7)
+            for stage in c.stages:
+                for location in ['mean', 'hub', 'tip']:
+                    score += act.smooth_step_down(stage.work_coeff[location],
+                                                  start=optimal_work_coeff_range[0],
+                                                  end=optimal_work_coeff_range[1],
+                                                  min_y=0,
+                                                  max_y=0.1)
+                    score += act.smooth_step_down(stage.flow_coeff[location],
+                                                  start=optimal_flow_coeff_range[0],
+                                                  end=optimal_flow_coeff_range[1],
+                                                  min_y=0,
+                                                  max_y=0.1)
+                    # award points for df criterion
+                    df_eff = np.abs(stage.diffusion_factor[location] - 0.45)
+                    score += act.smooth_step_down(df_eff,
+                                                  start=0,
+                                                  end=0.2,
+                                                  min_y=0,
+                                                  max_y=0.1)
+                    max_score += 0.3
+        return 100 * score / max_score

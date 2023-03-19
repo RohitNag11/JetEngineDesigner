@@ -61,14 +61,14 @@ def get_engine_constants():
 
 def __get_variable_ranges():
     return {
-        'hpt_min_blade_length': np.linspace(0.019, 0.023, 3, endpoint=True),
-        'hpt_work_coefficient': np.linspace(1.76, 2, 3, endpoint=True),
-        'hpt_angular_velocity': np.linspace(500, 1000, 6, endpoint=True),
-        'lpc_diffusion_factor': np.linspace(0.1, 0.5, 5, endpoint=True),
-        'hpc_diffusion_factor': np.linspace(0.1, 0.5, 5, endpoint=True),
-        'hpt_lift_coeff': np.linspace(0.7, 0.9, 3, endpoint=True),
-        'lpc_reaction_mean': np.linspace(0.3, 0.9, 3, endpoint=True),
-        'hpc_reaction_mean': np.linspace(0.3, 0.9, 3, endpoint=True),
+        'hpt_min_blade_length': np.linspace(0.019, 0.023, 7, endpoint=True),
+        'hpt_work_coefficient': np.linspace(1.76, 2, 7, endpoint=True),
+        'hpt_angular_velocity': np.linspace(600, 900, 7, endpoint=True),
+        'lpc_diffusion_factor': np.linspace(0.1, 0.2, 7, endpoint=True),
+        'hpc_diffusion_factor': np.linspace(0.1, 0.2, 7, endpoint=True),
+        'hpt_lift_coeff': np.linspace(0.7, 0.9, 7, endpoint=True),
+        'lpc_reaction_mean': np.linspace(0.3, 0.8, 7, endpoint=True),
+        'hpc_reaction_mean': np.linspace(0.35, 0.8, 7, endpoint=True),
     }
 
 
