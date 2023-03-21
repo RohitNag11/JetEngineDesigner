@@ -38,17 +38,8 @@ This is a Python package for designing and analyzing jet engines. It includes fu
 
 This project requires the following Python packages to be installed:
 
-- contourpy==1.0.7
-- cycler==0.11.0
-- fonttools==4.39.0
-- kiwisolver==1.4.4
 - matplotlib==3.7.1
 - numpy==1.24.2
-- packaging==23.0
-- Pillow==9.4.0
-- pyparsing==3.0.9
-- python-dateutil==2.8.2
-- six==1.16.0
 - tqdm==4.65.0
 
 You can install these dependencies using pip by running the following command:
