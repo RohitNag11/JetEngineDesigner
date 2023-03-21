@@ -194,7 +194,7 @@ The `main()` function outputs two things:
 
 ## 7. Acknowledgements
 
-This project was developed as a supplement for the ME4 Aircraft Engine Technology Course Project.
+This project was developed as a supplement for the Imperial College Mechanical Engineering 4 Aircraft Engine Technology project.
 
 Supervisor:
 
